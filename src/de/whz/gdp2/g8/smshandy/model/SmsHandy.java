@@ -3,6 +3,7 @@ package de.whz.gdp2.g8.smshandy.model;
 public abstract class SmsHandy {
 	private String number;
 	
+	protected Provider provider;
 	public SmsHandy(String number, Provider provider) {
 		this.number = number;
 	}
