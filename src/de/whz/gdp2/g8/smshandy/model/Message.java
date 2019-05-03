@@ -2,7 +2,7 @@ package de.whz.gdp2.g8.smshandy.model;
 
 import java.util.Date;
 
-public class Message extends SmsHandy{
+public class Message{
 	private String content;
 	private Date date;
 	private String from;
