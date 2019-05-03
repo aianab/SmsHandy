@@ -43,9 +43,6 @@ public class Provider {
 		return phones;
 	}
 	
-	public String getName() {
-		return name;
-	}
 	
 	private boolean canSendTo(String number) {
 		for(SmsHandy phone :phones) {
