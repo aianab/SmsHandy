@@ -19,9 +19,7 @@ public class Message{
 		this.date = date;
 	}
 
-	public String toString() {
-		return " ";
-	}
+	
 	
 	public Date getDate() {
 		return this.date;
@@ -53,5 +51,10 @@ public class Message{
 	
 	public void setFrom(String from) {
 		this.from = from;
+	}
+	
+	@Override
+	public String toString() {
+		return "Message [content=" + content + ", date=" + date + ", from=" + from + ", to=" + to + "]";
 	}
 }

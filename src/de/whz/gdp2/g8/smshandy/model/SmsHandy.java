@@ -1,10 +1,15 @@
 package de.whz.gdp2.g8.smshandy.model;
 
 import java.util.Date;
+import java.util.List;
 
 
 public abstract class SmsHandy {
 	private String number;
+	
+	private List<Message> sent;
+	
+	private List<Message> received;
 	
 	protected Provider provider;
 	
@@ -42,14 +47,15 @@ public abstract class SmsHandy {
 	}
 	
 	public void listReceived() {
-		
+		received.forEach(System.out::println);	
 	}
 	
 	public void listSent() {
-		
+		sent.forEach(System.out::println);
 	}
 	
 	public void receiveSms(Message message) {
-		
+	
 	}
+	
 }
