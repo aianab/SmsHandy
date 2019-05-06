@@ -1,33 +1,48 @@
 package de.whz.gdp2.g8.smshandy.model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class Provider {
+	public static final String BALANCE_COMMAND = "*101#";
 	private Map<String, Integer> credits;
-	private Set<SmsHandy> phones;
+	private Map<String, SmsHandy> phones;
 	
 	public Provider() {
 		credits = new HashMap<>();
-		phones = new HashSet<>();
+		phones = new HashMap<>();
 	}
 	
 	
 	public boolean send(Message message) {
-		for(SmsHandy phone : phones) {
-			if(phone.getNumber().equalsIgnoreCase(message.getTo()) ) {
-				phone.receiveSms(message);
-				phone.payForSms();
-				return true;
-			}
+		if(message.getTo().equals(BALANCE_COMMAND)) {
+			Message m = new Message();
+			m.setFrom("Operator");
+			m.setTo(message.getFrom());
+			m.setDate(new Date());
+			m.setContent("Your current balance is " + credits.get(message.getFrom()) + ".");
+			
+			phones.get(message.getFrom()).receiveSms(message);
+			return true;
 		}
-		return false;
+		
+		if(phones.get(message.getFrom()) == null || phones.get(message.getTo()) == null) {
+			return false;
+		}
+		
+		SmsHandy from = phones.get(message.getFrom());
+		SmsHandy to = phones.get(message.getTo());
+		
+		to.receiveSms(message);
+		from.payForSms();
+		return true;
 	}
 	
 	public void register(SmsHandy phone) {
-		phones.add(phone);
+		phones.put(phone.getNumber(), phone);
 		credits.put(phone.getNumber(), 100);
 	}
 	
@@ -39,18 +54,9 @@ public class Provider {
 		return credits.get(number);
 	}
 	
-	public Set<SmsHandy> getSmsHandys() {
-		return phones;
-	}
-	
 	
 	private boolean canSendTo(String number) {
-		for(SmsHandy phone :phones) {
-			if(phone.getNumber().equalsIgnoreCase(number)) {
-				return phone.canSendSms();
-			}
-		}
-		return false;
+		return phones.get(number).canSendSms();
 	}
 	
 	private static Provider findProviderFor(String number) {
