@@ -12,14 +12,14 @@ public class Message{
 		
 	}
 	
+	
+	
 	public Message(String from, String to, String content, Date date ) {
 		this.content = content;
 		this.from = from;
 		this.to = to;
 		this.date = date;
 	}
-
-	
 	
 	public Date getDate() {
 		return this.date;
