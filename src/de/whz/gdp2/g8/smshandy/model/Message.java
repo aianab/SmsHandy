@@ -12,6 +12,8 @@ public class Message{
 		
 	}
 	
+	
+	
 	public Message(String from, String to, String content, Date date ) {
 		this.content = content;
 		this.from = from;
@@ -19,9 +21,6 @@ public class Message{
 		this.date = date;
 	}
 
-	public String toString() {
-		return " ";
-	}
 	
 	public Date getDate() {
 		return this.date;

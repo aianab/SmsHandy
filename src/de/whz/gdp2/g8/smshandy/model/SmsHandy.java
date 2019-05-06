@@ -1,19 +1,29 @@
 package de.whz.gdp2.g8.smshandy.model;
 
 import java.util.Date;
+import java.util.List;
 
 
 public abstract class SmsHandy {
 	private String number;
+	private List<Message> received;
+	private List<Message> sent;
 	
 	protected Provider provider;
 	
 	public SmsHandy(String number, Provider provider) {
 		this.number = number;
+		this.provider = provider;
 	}
 	
 	public void sendSms(String to, String content) {
-		
+		Message message = new Message();
+		message.setFrom(number);
+		message.setTo(to);
+		message.setContent(content);
+		message.setDate(new Date());
+		provider.send(message);
+		sent.add(message);
 	}
 	
 	public abstract boolean canSendSms();
@@ -50,6 +60,6 @@ public abstract class SmsHandy {
 	}
 	
 	public void receiveSms(Message message) {
-		
+		received.add(message);
 	}
 }
