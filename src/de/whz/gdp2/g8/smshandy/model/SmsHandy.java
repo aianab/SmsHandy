@@ -52,7 +52,6 @@ public abstract class SmsHandy {
 	}
 	
 	public void listReceived() {
-		
 	}
 	
 	public void listSent() {
