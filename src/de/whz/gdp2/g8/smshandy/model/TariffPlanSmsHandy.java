@@ -4,19 +4,19 @@ public class TariffPlanSmsHandy extends SmsHandy {
 	
 private int remainingFreeSms = 100;
 
-public TariffPlanSmsHandy(String number, Provider provider) {
-	super(number, provider);
-}
+	public TariffPlanSmsHandy(String number, Provider provider) {
+		super(number, provider);
+	}
 
-public boolean canSendSms() {
-	return true;
-}
+	public boolean canSendSms() {
+		return true;
+	}
 
-public void payForSms() {
+	public void payForSms() {
 	
-}
+	}
 
-public int getRemainingFreeSms() {
-	return 0;
-}
+	public int getRemainingFreeSms() {
+		return remainingFreeSms;
+	}
 }
