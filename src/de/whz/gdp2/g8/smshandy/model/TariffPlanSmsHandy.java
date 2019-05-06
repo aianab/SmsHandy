@@ -9,11 +9,11 @@ private int remainingFreeSms = 100;
 	}
 
 	public boolean canSendSms() {
-		return true;
+		return remainingFreeSms > 0;
 	}
 
 	public void payForSms() {
-	
+		remainingFreeSms--;
 	}
 
 	public int getRemainingFreeSms() {
