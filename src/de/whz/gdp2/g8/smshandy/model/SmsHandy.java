@@ -52,13 +52,15 @@ public abstract class SmsHandy {
 	}
 	
 	public void listReceived() {
+		received.forEach(System.out::println);	
 	}
 	
 	public void listSent() {
-		
+		sent.forEach(System.out::println);
 	}
 	
 	public void receiveSms(Message message) {
 		received.add(message);
 	}
+	
 }
