@@ -1,5 +1,6 @@
 package de.whz.gdp2.g8.smshandy.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,8 @@ public abstract class SmsHandy {
 	public SmsHandy(String number, Provider provider) {
 		this.number = number;
 		this.provider = provider;
+		sent = new ArrayList<>();
+		received = new ArrayList<>();
 	}
 	
 	public void sendSms(String to, String content) {
@@ -52,11 +55,15 @@ public abstract class SmsHandy {
 	}
 	
 	public void listReceived() {
+		System.out.println("--------Received messages--------");
 		received.forEach(System.out::println);	
+		System.out.println("---------------------------------");
 	}
 	
 	public void listSent() {
+		System.out.println("----------Sent messages----------");
 		sent.forEach(System.out::println);
+		System.out.println("---------------------------------");
 	}
 	
 	public void receiveSms(Message message) {
