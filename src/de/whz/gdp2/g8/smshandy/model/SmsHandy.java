@@ -35,7 +35,8 @@ public abstract class SmsHandy {
 		message.setFrom(this.getNumber());
 		message.setTo(peer.getNumber());
 		message.setDate(new Date());
-		receiveSms(message);
+		peer.receiveSms(message);
+		sent.add(message);
 	}
 	
 	public String getNumber() {
@@ -59,7 +60,7 @@ public abstract class SmsHandy {
 	}
 	
 	public void receiveSms(Message message) {
-	
+		
 	}
 	
 }
