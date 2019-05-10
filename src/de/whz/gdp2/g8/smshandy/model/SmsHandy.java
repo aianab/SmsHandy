@@ -28,6 +28,7 @@ public abstract class SmsHandy {
 		message.setTo(to);
 		message.setDate(new Date());
 		provider.send(message);
+		sent.add(message);
 	}
 	
 	public abstract boolean canSendSms();
