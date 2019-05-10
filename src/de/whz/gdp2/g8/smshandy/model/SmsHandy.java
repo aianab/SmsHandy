@@ -17,12 +17,18 @@ public abstract class SmsHandy {
 	public SmsHandy(String number, Provider provider) {
 		this.number = number;
 		this.provider = provider;
-		sent = new ArrayList();
-		received = new ArrayList();
+		sent = new ArrayList<>();
+		received = new ArrayList<>();
 	}
 	
 	public void sendSms(String to, String content) {
-		
+		Message message = new Message();
+		message.setContent(content);
+		message.setFrom(this.number);
+		message.setTo(to);
+		message.setDate(new Date());
+		provider.send(message);
+		sent.add(message);
 	}
 	
 	public abstract boolean canSendSms();
@@ -52,15 +58,19 @@ public abstract class SmsHandy {
 	}
 	
 	public void listReceived() {
+		System.out.println("--------Received messages--------");
 		received.forEach(System.out::println);	
+		System.out.println("---------------------------------");
 	}
 	
 	public void listSent() {
+		System.out.println("----------Sent messages----------");
 		sent.forEach(System.out::println);
+		System.out.println("---------------------------------");
 	}
 	
 	public void receiveSms(Message message) {
-		
+		received.add(message);
 	}
 	
 }
