@@ -2,6 +2,9 @@ package de.whz.gdp2.g8.smshandy.model;
 
 import java.util.Date;
 
+/**
+ * Klasse Message. Eine Nachricht, die über die SMSHandys verschickt werden kann.
+ */
 public class Message{
 	private String content;
 	private Date date;
