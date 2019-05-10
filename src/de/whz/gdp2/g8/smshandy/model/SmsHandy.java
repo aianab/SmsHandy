@@ -7,8 +7,10 @@ import java.util.List;
 
 public abstract class SmsHandy {
 	private String number;
-	private List<Message> received;
+	
 	private List<Message> sent;
+	
+	private List<Message> received;
 	
 	protected Provider provider;
 	
@@ -21,12 +23,11 @@ public abstract class SmsHandy {
 	
 	public void sendSms(String to, String content) {
 		Message message = new Message();
-		message.setFrom(number);
-		message.setTo(to);
 		message.setContent(content);
+		message.setFrom(this.number);
+		message.setTo(to);
 		message.setDate(new Date());
 		provider.send(message);
-		sent.add(message);
 	}
 	
 	public abstract boolean canSendSms();
