@@ -5,10 +5,8 @@ public class Main {
 		Provider p = new Provider();
 		SmsHandy phone1 = new PrepaidSmsHandy("123", p);
 		SmsHandy phone2 = new TariffPlanSmsHandy("456", p);
-		p.register(phone1);
-		p.register(phone2);
 		
-		phone1.sendSms("456", "Fuck you");
+		phone1.sendSms("456", "asdkhd");
 		phone2.listReceived();
 		phone1.listSent();
 		phone1.sendSms("*101#", "");

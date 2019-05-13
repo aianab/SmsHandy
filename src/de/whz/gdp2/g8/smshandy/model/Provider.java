@@ -26,6 +26,13 @@ public class Provider {
 	 * @return true, wenn SMS gesendet werden konnte
 	 */
 	public boolean send(Message message) {
+		SmsHandy from = phones.get(message.getFrom());
+		SmsHandy to = phones.get(message.getTo());
+		
+		if(from == null || to == null) {
+			return false;
+		}
+		
 		if(message.getTo().equals(BALANCE_COMMAND)) {
 			Message m = new Message();
 			m.setFrom("Operator");
@@ -33,16 +40,9 @@ public class Provider {
 			m.setDate(new Date());
 			m.setContent("Your current balance is " + credits.get(message.getFrom()) + ".");
 			
-			phones.get(message.getFrom()).receiveSms(message);
+			from.receiveSms(message);
 			return true;
 		}
-		
-		if(phones.get(message.getFrom()) == null || phones.get(message.getTo()) == null) {
-			return false;
-		}
-		
-		SmsHandy from = phones.get(message.getFrom());
-		SmsHandy to = phones.get(message.getTo());
 		
 		to.receiveSms(message);
 		from.payForSms();
