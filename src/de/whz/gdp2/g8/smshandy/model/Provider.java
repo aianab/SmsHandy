@@ -89,7 +89,11 @@ public class Provider {
 	}
 	
 	private static Provider findProviderFor(String number) {
-		//ToDO
+		for ( Provider provider : providerList) {
+			if(provider.canSendTo(number)) {
+				return provider;
+			}
+		}
 		return null;
 	}
 }
