@@ -30,8 +30,8 @@ public class Provider {
 	 * @return true, wenn SMS gesendet werden konnte
 	 */
 	public boolean send(Message message) {
-		SmsHandy from = phones.get(message.getFrom());
-		SmsHandy to = phones.get(message.getTo());
+		SmsHandy from = findProviderFor(message.getFrom()).phones.get(message.getFrom());
+		SmsHandy to = findProviderFor(message.getTo()).phones.get(message.getTo());
 		
 		if(from == null || to == null) {
 			return false;
