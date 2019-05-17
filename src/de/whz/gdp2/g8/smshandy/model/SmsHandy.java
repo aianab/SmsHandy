@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.whz.gdp2.g8.smshandy.exception.CantSendException;
+import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
+
 /**
  * Abstrakte Basisklasse SmsHandy.
  */
@@ -22,6 +25,9 @@ public abstract class SmsHandy {
 	 * @param provider - die Providerinstanz
 	 */
 	public SmsHandy(String number, Provider provider) {
+		if(number == null || provider == null) {
+			throw new NullPointerException("Number or Provider is not given");
+		}
 		this.number = number;
 		this.provider = provider;
 		sent = new ArrayList<>();
@@ -41,7 +47,6 @@ public abstract class SmsHandy {
 		message.setDate(new Date());
 		provider.send(message);
 		sent.add(message);
-		payForSms();
 	}
 	
 	/**
@@ -53,7 +58,7 @@ public abstract class SmsHandy {
 	/**
 	 * Abstrakte Methode zum Bezahlen des SMS-Versand.
 	 */
-	public abstract void payForSms();
+	public abstract void payForSms() throws NotEnoughBalanceException;
 	
 	/**
 	 * Schickt eine SMS ohne den Provider an den Empfaenger
@@ -61,6 +66,9 @@ public abstract class SmsHandy {
 	 * @param content - der Inhalt der SMS
 	 */
 	public void sendSmsDirect(SmsHandy peer, String content) { 
+		if(peer == null) {
+			throw new NullPointerException("Reciver's numer is not given");
+		}
 		Message message = new Message();
 		message.setContent(content);
 		message.setFrom(this.getNumber());
@@ -68,7 +76,6 @@ public abstract class SmsHandy {
 		message.setDate(new Date());
 		peer.receiveSms(message);
 		sent.add(message);
-		payForSms();
 	}
 	
 	/**
@@ -116,8 +123,12 @@ public abstract class SmsHandy {
 	/**
 	 * Empfaengt eine SMS und speichert diese in den empfangenen SMS
 	 * @param message - das Message-Objekt, welches an das zweite Handy gesendet werden soll
+	 * @throws CantSendException 
 	 */
-	public void receiveSms(Message message) {
+	public void receiveSms(Message message) throws CantSendException {
+		if(message.getTo() != this.number) {
+			throw new CantSendException();
+		}
 		received.add(message);
 	}
 	

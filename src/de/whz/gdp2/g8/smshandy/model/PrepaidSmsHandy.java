@@ -1,5 +1,7 @@
 package de.whz.gdp2.g8.smshandy.model;
 
+import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
+
 /**
  * Klasse PrepaidSmsHandy. 
  * Ein Handy, das über ein beim Provider verwaltetes Guthaben verfügt und
@@ -28,7 +30,10 @@ public class PrepaidSmsHandy extends SmsHandy {
 	}
 
 	@Override
-	public void payForSms() {
+	public void payForSms() throws NotEnoughBalanceException {
+		if(!canSendSms()) {
+			throw new NotEnoughBalanceException();
+		}
 		deposit(COST_PER_SMS*(-1));
 	}
 	
