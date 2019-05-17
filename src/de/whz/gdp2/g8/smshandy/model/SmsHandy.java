@@ -41,6 +41,7 @@ public abstract class SmsHandy {
 		message.setDate(new Date());
 		provider.send(message);
 		sent.add(message);
+		payForSms();
 	}
 	
 	/**
@@ -67,6 +68,7 @@ public abstract class SmsHandy {
 		message.setDate(new Date());
 		peer.receiveSms(message);
 		sent.add(message);
+		payForSms();
 	}
 	
 	/**
