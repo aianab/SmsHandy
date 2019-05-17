@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
+
 /**
  * Klasse Provider
  */
@@ -56,8 +58,12 @@ public class Provider {
 	/**
 	 * Registriert ein neues Handy bei diesem Provider
 	 * @param smsHandy - das neue Handy
+	 * @throws NumberExistsException 
 	 	*/
-	public void register(SmsHandy phone) {
+	public void register(SmsHandy phone) throws NumberExistsException {
+		if(canSendTo(phone.getNumber())) {
+			throw new NumberExistsException();
+		}
 		phones.put(phone.getNumber(), phone);
 		credits.put(phone.getNumber(), 100);
 	}
