@@ -53,7 +53,6 @@ public class Provider {
 		}
 
 		to.receiveSms(message);
-		from.payForSms();
 		return true;
 	}
 
