@@ -1,8 +1,10 @@
 package de.whz.gdp2.g8.smshandy.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,6 +12,7 @@ import java.util.Set;
  * Klasse Provider
  */
 public class Provider {
+	public static List<Provider> providerList = new ArrayList<>();
 	public static final String BALANCE_COMMAND = "*101#";
 	private Map<String, Integer> credits;
 	private Map<String, SmsHandy> phones;
@@ -18,6 +21,7 @@ public class Provider {
 	public Provider() {
 		credits = new HashMap<>();
 		phones = new HashMap<>();
+		providerList.add(this);
 	}
 	
 	/**
