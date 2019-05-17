@@ -85,7 +85,7 @@ public class Provider {
 	
 	
 	private boolean canSendTo(String number) {
-		return phones.get(number).canSendSms();
+		return phones.get(number) != null;
 	}
 	
 	private static Provider findProviderFor(String number) {
