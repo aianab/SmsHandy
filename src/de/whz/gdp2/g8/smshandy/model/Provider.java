@@ -27,7 +27,14 @@ public class Provider {
 		phones = new HashMap<>();
 		providerList.add(this);
 	}
+	
+	public Map<String, Integer> getCredits() {
+		return credits;
+	}
 
+	public void setCredits(Map<String, Integer> credits) {
+		this.credits = credits;
+	}
 	/**
 	 * Sendet die SMS an den Empfaenger, wenn dieser bekannt ist
 	 * 

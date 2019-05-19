@@ -33,8 +33,24 @@ public abstract class SmsHandy {
 		this.number = number;
 		this.provider = provider;
 		this.provider.register(this);
-		sent = new ArrayList<>();
+		sent  = new ArrayList<>();
 		received = new ArrayList<>();
+	}
+	
+	public List<Message> getSent() {
+		return sent;
+	}
+
+	public void setSent(List<Message> sent) {
+		this.sent = sent;
+	}
+	
+	public List<Message> getReceived() {
+		return received;
+	}
+
+	public void setReceived(List<Message> received) {
+		this.received = received;
 	}
 	
 	/**
@@ -51,7 +67,7 @@ public abstract class SmsHandy {
 		message.setTo(to);
 		message.setDate(new Date());
 		provider.send(message);
-		sent.add(message);
+		getSent().add(message);
 	}
 	
 	/**
@@ -81,7 +97,7 @@ public abstract class SmsHandy {
 		message.setTo(peer.getNumber());
 		message.setDate(new Date());
 		peer.receiveSms(message);
-		sent.add(message);
+		getSent().add(message);
 	}
 	
 	/**
@@ -122,7 +138,7 @@ public abstract class SmsHandy {
 	 */
 	public void listSent() {
 		System.out.println("----------Sent messages----------");
-		sent.forEach(System.out::println);
+		getSent().forEach(System.out::println);
 		System.out.println("---------------------------------");
 	}
 	
