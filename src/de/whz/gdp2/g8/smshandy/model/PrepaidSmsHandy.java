@@ -1,6 +1,7 @@
 package de.whz.gdp2.g8.smshandy.model;
 
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
+import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 
 /**
  * Klasse PrepaidSmsHandy. 
@@ -14,8 +15,9 @@ public class PrepaidSmsHandy extends SmsHandy {
 	 * Konstruktor zum Erstellen eines neuen PrepaidHandy
 	 * @param number - die Handynummer
 	 * @param provider - die Providerinstanz
+	 * @throws NumberExistsException 
 	 */
-	public PrepaidSmsHandy (String number, Provider provider) {
+	public PrepaidSmsHandy (String number, Provider provider) throws NumberExistsException {
 		super(number, provider);
 	}
 

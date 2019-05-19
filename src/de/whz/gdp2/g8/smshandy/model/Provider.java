@@ -37,9 +37,8 @@ public class Provider {
 	 */
 	public boolean send(Message message) throws NotEnoughBalanceException, CantSendException {
 		SmsHandy from = findProviderFor(message.getFrom()).phones.get(message.getFrom());
-		SmsHandy to = findProviderFor(message.getTo()).phones.get(message.getTo());
-
-		if (from == null || to == null) {
+		
+		if (from == null) {
 			return false;
 		}
 
@@ -53,6 +52,9 @@ public class Provider {
 			from.receiveSms(m);
 			return true;
 		}
+		
+		SmsHandy to = findProviderFor(message.getTo()).phones.get(message.getTo());
+
 
 		to.receiveSms(message);
 		return true;
