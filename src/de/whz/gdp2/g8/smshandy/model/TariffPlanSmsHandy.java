@@ -1,5 +1,7 @@
 package de.whz.gdp2.g8.smshandy.model;
 
+import java.util.List;
+
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 
 /**
@@ -18,7 +20,10 @@ private int remainingFreeSms = 100;
 	public TariffPlanSmsHandy(String number, Provider provider) throws NumberExistsException {
 		super(number, provider);
 	}
-
+	
+	public void setRemainingFreeSms1(int remainingFreeSms) {
+		this.remainingFreeSms = remainingFreeSms;
+	}
 	/**
 	 * Prüft, ob Frei-SMS noch zum Senden ausreichen.
 	 * @return boolean 
