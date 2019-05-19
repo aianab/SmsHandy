@@ -52,6 +52,7 @@ public abstract class SmsHandy {
 		message.setDate(new Date());
 		provider.send(message);
 		sent.add(message);
+		payForSms();
 	}
 	
 	/**
@@ -70,8 +71,9 @@ public abstract class SmsHandy {
 	 * @param peer - das empfangende Handy
 	 * @param content - der Inhalt der SMS
 	 * @throws CantSendException 
+	 * @throws NotEnoughBalanceException 
 	 */
-	public void sendSmsDirect(SmsHandy peer, String content) throws CantSendException { 
+	public void sendSmsDirect(SmsHandy peer, String content) throws CantSendException, NotEnoughBalanceException { 
 		if(peer == null) {
 			throw new NullPointerException("Reciver's numer is not given");
 		}
@@ -82,6 +84,7 @@ public abstract class SmsHandy {
 		message.setDate(new Date());
 		peer.receiveSms(message);
 		sent.add(message);
+		payForSms();
 	}
 	
 	/**
