@@ -38,8 +38,10 @@ public abstract class SmsHandy {
 	 * Schickt eine SMS ueber den Provider an den Empfaenger.
 	 * @param to - der Empfaenger der SMS
 	 * @param content - der Inhalt der SMS
+	 * @throws NotEnoughBalanceException 
+	 * @throws CantSendException 
 	 */
-	public void sendSms(String to, String content) {
+	public void sendSms(String to, String content) throws NotEnoughBalanceException, CantSendException {
 		Message message = new Message();
 		message.setContent(content);
 		message.setFrom(this.number);
@@ -64,8 +66,9 @@ public abstract class SmsHandy {
 	 * Schickt eine SMS ohne den Provider an den Empfaenger
 	 * @param peer - das empfangende Handy
 	 * @param content - der Inhalt der SMS
+	 * @throws CantSendException 
 	 */
-	public void sendSmsDirect(SmsHandy peer, String content) { 
+	public void sendSmsDirect(SmsHandy peer, String content) throws CantSendException { 
 		if(peer == null) {
 			throw new NullPointerException("Reciver's numer is not given");
 		}
