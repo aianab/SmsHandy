@@ -21,7 +21,7 @@ private int remainingFreeSms = 100;
 		super(number, provider);
 	}
 	
-	public void setRemainingFreeSms1(int remainingFreeSms) {
+	public void setRemainingFreeSms(int remainingFreeSms) {
 		this.remainingFreeSms = remainingFreeSms;
 	}
 	/**

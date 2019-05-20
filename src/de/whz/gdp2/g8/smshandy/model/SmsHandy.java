@@ -67,12 +67,7 @@ public abstract class SmsHandy {
 		message.setTo(to);
 		message.setDate(new Date());
 		provider.send(message);
-<<<<<<< HEAD
-		getSent().add(message);
-=======
 		sent.add(message);
-		payForSms();
->>>>>>> ff3a5131a9cb3931d5f78a524da53392b1dd8a87
 	}
 	
 	/**
