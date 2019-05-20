@@ -30,13 +30,13 @@ class SmsHandyTest {
 		phone2 = new PrepaidSmsHandy(reciever, provider);
 	}
 	@Test
-	void testSendSms() throws NotEnoughBalanceException, CantSendException, NumberExistsException {
+	void testSendSms() throws NotEnoughBalanceException, CantSendException {
 		phone1.sendSms(reciever, content);
 		assertEquals(phone1.getSent().get(0).getTo(), reciever);
 	}
 
 	@Test
-	void testReceiveSms() throws NumberExistsException, CantSendException {
+	void testReceiveSms() throws CantSendException {
 		Message message1 = new Message("sender1", reciever, "Hi!", new Date());
 		Message message2 = new Message("sender2", reciever, "Hi again!", new Date());
 		Message message3 = new Message("sender3", reciever, "Bye", new Date());		
@@ -54,7 +54,7 @@ class SmsHandyTest {
 	}
 	
 	@Test
-	void testSendSmsDirect() throws NotEnoughBalanceException, CantSendException, NumberExistsException {
+	void testSendSmsDirect() throws NotEnoughBalanceException, CantSendException {
 		phone1.sendSmsDirect(phone2, content);
 		assertEquals(phone1.getSent().get(0).getTo(), reciever);
 	}

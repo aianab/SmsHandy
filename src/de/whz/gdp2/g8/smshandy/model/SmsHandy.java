@@ -1,6 +1,7 @@
 package de.whz.gdp2.g8.smshandy.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -38,19 +39,11 @@ public abstract class SmsHandy {
 	}
 	
 	public List<Message> getSent() {
-		return sent;
-	}
-
-	public void setSent(List<Message> sent) {
-		this.sent = sent;
+		return Collections.unmodifiableList(sent);
 	}
 	
 	public List<Message> getReceived() {
-		return received;
-	}
-
-	public void setReceived(List<Message> received) {
-		this.received = received;
+		return Collections.unmodifiableList(sent);
 	}
 	
 	/**

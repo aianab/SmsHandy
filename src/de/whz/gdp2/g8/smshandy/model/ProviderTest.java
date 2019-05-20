@@ -1,5 +1,7 @@
 package de.whz.gdp2.g8.smshandy.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,14 +21,9 @@ public class ProviderTest {
 		this.phone2 = new TariffPlanSmsHandy("456", this.provider2);
 	}
 
-	@Test
 	public void send() throws Exception {
-		try {
-			phone1.sendSms(phone2.getNumber(), "Hello");
-			assert provider1.getCreditForSmsHandy(phone1.getNumber()) == 90;
-		} catch (Exception e) {
-			assert false;
-		}
+		phone1.sendSms(phone2.getNumber(), "Hello");
+		assertEquals(90, provider1.getCreditForSmsHandy(phone1.getNumber()));
 	}
 
 	@Test
