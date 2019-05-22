@@ -10,9 +10,9 @@ import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 
 
 public class TariffPlanSmsHandyTest {
-	String sender;
-	Provider provider;
-	TariffPlanSmsHandy phone;
+	private String sender;
+	private Provider provider;
+	private TariffPlanSmsHandy phone;
 	
 	@BeforeEach
 	public void init() throws NumberExistsException {
@@ -20,7 +20,7 @@ public class TariffPlanSmsHandyTest {
 		provider = new Provider();
 		phone = new TariffPlanSmsHandy(sender, provider);
 	}
-	@Test
+	@Test()
 	void testCanSendSms() throws NumberExistsException {
 		assertEquals(phone.canSendSms(), true);
 	}
@@ -28,7 +28,9 @@ public class TariffPlanSmsHandyTest {
 	
 	@Test
 	void testCanNotSendSms() throws NumberExistsException {
-		phone.setRemainingFreeSms(0);
+		for(int i = 0; i <=100; i++) {
+			phone.payForSms();
+		}
 		assertEquals(phone.canSendSms(), false);
 	}
 	

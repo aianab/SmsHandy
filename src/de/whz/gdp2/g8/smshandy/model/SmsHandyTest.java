@@ -15,11 +15,11 @@ import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 
 class SmsHandyTest {
 
-	String reciever;
-	String content;
-	Provider provider;
-	SmsHandy phone1;
-	SmsHandy phone2;
+	private String reciever;
+	private String content;
+	private Provider provider;
+	private SmsHandy phone1;
+	private SmsHandy phone2;
 	
 	@BeforeEach
 	public void init() throws NumberExistsException {
@@ -32,6 +32,12 @@ class SmsHandyTest {
 	@Test
 	void testSendSms() throws NotEnoughBalanceException, CantSendException {
 		phone1.sendSms(reciever, content);
+		assertEquals(phone1.getSent().get(0).getTo(), reciever);
+	}
+	
+	@Test
+	void testCanNotSendSms() throws NotEnoughBalanceException, CantSendException {
+		phone1.sendSms("0", content);
 		assertEquals(phone1.getSent().get(0).getTo(), reciever);
 	}
 

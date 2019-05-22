@@ -10,9 +10,9 @@ import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 
 class PrepaidSmsHandyTest {
 
-	String sender;
-	Provider provider;
-	PrepaidSmsHandy phone;
+	private String sender;
+	private Provider provider;
+	private PrepaidSmsHandy phone;
 	
 	@BeforeEach
 	public void init() throws NumberExistsException {
@@ -23,27 +23,26 @@ class PrepaidSmsHandyTest {
 	
 	@Test
 	void testPayForSms() throws NumberExistsException, NotEnoughBalanceException {
-		Integer actualBalance = 90;
+		int actualBalance = 90;
 		phone.payForSms();
-		assertEquals(provider.getCredits().get(sender), actualBalance);
+		assertEquals(provider.getCreditForSmsHandy(phone.getNumber()), actualBalance);
 	}
 
 	@Test
 	void testDeposit() throws NumberExistsException{
-		Integer actualBalance = 200;
+		int actualBalance = 200;
 		phone.deposit(100);
-		assertEquals(provider.getCredits().get(sender), actualBalance);
+		assertEquals(provider.getCreditForSmsHandy(phone.getNumber()), actualBalance);
 	}
 	
 	@Test
 	void testCanSendSms() throws NumberExistsException{
-		provider.getCredits().put(sender, 20);
 		assertEquals(phone.canSendSms(), true);
 	}
 	
 	@Test
 	void testCanNotSendSms() throws NumberExistsException{
-		provider.getCredits().put(sender, 0);
+		provider.deposit(sender, -100);
 		assertEquals(phone.canSendSms(), false);
 	}
 }
