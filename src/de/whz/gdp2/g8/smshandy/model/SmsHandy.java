@@ -8,6 +8,8 @@ import java.util.List;
 import de.whz.gdp2.g8.smshandy.exception.CantSendException;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
+import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 
 /**
  * Abstrakte Basisklasse SmsHandy.
@@ -25,11 +27,16 @@ public abstract class SmsHandy {
 	 * Konstruktor fuer Objekte der Klasse SmsHandy
 	 * @param number - die Handynummer
 	 * @param provider - die Providerinstanz
+	 * @throws NumberNotExistException 
 	 * @throws NumberExistsException 
+	 * @throws ProviderNotGivenException 
 	 */
-	public SmsHandy(String number, Provider provider) throws NumberExistsException {
-		if(number == null || provider == null) {
-			throw new NullPointerException("Number or Provider is not given");
+	public SmsHandy(String number, Provider provider) throws NumberNotExistException, NumberExistsException, ProviderNotGivenException {
+		if(number == null) {
+			throw new NumberNotExistException();	
+		}
+		if(provider == null) {
+			throw new ProviderNotGivenException();
 		}
 		this.number = number;
 		this.provider = provider;
