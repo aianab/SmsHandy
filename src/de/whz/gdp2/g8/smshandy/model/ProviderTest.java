@@ -5,6 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.whz.gdp2.g8.smshandy.exception.CantSendException;
+import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
+import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
+
 public class ProviderTest {
 
 	private Provider provider1;
@@ -21,19 +26,44 @@ public class ProviderTest {
 		this.phone2 = new TariffPlanSmsHandy("456", this.provider2);
 	}
 
+	@Test
 	public void send() throws Exception {
 		phone1.sendSms(phone2.getNumber(), "Hello");
 		assertEquals(90, provider1.getCreditForSmsHandy(phone1.getNumber()));
 	}
 
+	@Test(expected = CantSendException.class)
+	public void sendWithWrongNumber() throws Exception {
+		phone1.sendSms("woeij", "Hello");
+	}
+
+	@Test(expected = NotEnoughBalanceException.class)
+	public void sendWithNoBalance() throws Exception {
+		phone1.sendSms(phone2.getNumber(), "Hello");
+		phone1.sendSms(phone2.getNumber(), "Hello");
+		phone1.sendSms(phone2.getNumber(), "Hello");
+		phone1.sendSms(phone2.getNumber(), "Hello");
+		phone1.sendSms(phone2.getNumber(), "Hello");
+
+		phone1.sendSms(phone2.getNumber(), "Hello");
+		phone1.sendSms(phone2.getNumber(), "Hello");
+		phone1.sendSms(phone2.getNumber(), "Hello");
+		phone1.sendSms(phone2.getNumber(), "Hello");
+		phone1.sendSms(phone2.getNumber(), "Hello");
+
+		phone1.sendSms(phone2.getNumber(), "Hello");
+	}
+
+	@Test(expected = NumberExistsException.class)
+	public void registerWithTheSame() throws Exception {
+		new PrepaidSmsHandy("789", provider1);
+		new TariffPlanSmsHandy("789", provider1);
+	}
+	
 	@Test
-	public void register() throws Exception {
-		try {
-			SmsHandy phone = new PrepaidSmsHandy("789", provider1);
-			assert provider1.getCreditForSmsHandy(phone.getNumber()) == 100;
-		} catch (Exception e) {
-			assert false;
-		}
+	public void register() throws NumberExistsException {
+		new PrepaidSmsHandy("789", provider1);
+		new TariffPlanSmsHandy("911", provider1);
 	}
 
 	@Test
@@ -41,11 +71,21 @@ public class ProviderTest {
 		provider1.deposit(phone1.getNumber(), 100);
 		assert provider1.getCreditForSmsHandy(phone1.getNumber()) == 200;
 	}
+	
+	@Test(expected = NullPointerException.class)
+	public void depositWithNotExistingNumber() throws Exception {
+		provider1.deposit("Nothing", 100);
+	}
 
 	@Test
 	public void getCreditForSmsHandy() throws Exception {
 		phone1.sendSms("456", "Hello");
 		assert provider1.getCreditForSmsHandy(phone1.getNumber()) == 90;
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void getCreditForSmsHandyWithNotExistingNumber() {
+		provider1.getCreditForSmsHandy("nothing");
 	}
 
 }
