@@ -43,7 +43,7 @@ public abstract class SmsHandy {
 	}
 	
 	public List<Message> getReceived() {
-		return Collections.unmodifiableList(sent);
+		return Collections.unmodifiableList(received);
 	}
 	
 	/**
