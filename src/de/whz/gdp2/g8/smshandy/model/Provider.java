@@ -11,6 +11,7 @@ import java.util.Set;
 import de.whz.gdp2.g8.smshandy.exception.CantSendException;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
 
 /**
  * Klasse Provider
@@ -28,19 +29,14 @@ public class Provider {
 		providerList.add(this);
 	}
 	
-	public Map<String, Integer> getCredits() {
-		return credits;
-	}
 
-	public void setCredits(Map<String, Integer> credits) {
-		this.credits = credits;
-	}
 	/**
 	 * Sendet die SMS an den Empfaenger, wenn dieser bekannt ist
 	 * 
 	 * @param message - die zu sendente SMS
 	 * @return true, wenn SMS gesendet werden konnte
 	 * @throws CantSendException 
+	 * @throws NumberNotExistException 
 	 */
 	public boolean send(Message message) throws NotEnoughBalanceException, CantSendException {
 		SmsHandy from = findProviderFor(message.getFrom()).phones.get(message.getFrom());
@@ -60,9 +56,14 @@ public class Provider {
 			return true;
 		}
 		
-		SmsHandy to = findProviderFor(message.getTo()).phones.get(message.getTo());
+		Provider p = findProviderFor(message.getTo());
+		
+		if(p == null) throw new CantSendException();
+		
+		SmsHandy to = p.phones.get(message.getTo());
 
-
+		if(to == null) throw new CantSendException();
+		
 		to.receiveSms(message);
 		return true;
 	}
