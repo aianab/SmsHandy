@@ -9,6 +9,7 @@ import de.whz.gdp2.g8.smshandy.exception.CantSendException;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
 import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 
 /**
@@ -59,8 +60,12 @@ public abstract class SmsHandy {
 	 * @param content - der Inhalt der SMS
 	 * @throws NotEnoughBalanceException 
 	 * @throws CantSendException 
+	 * @throws NumberNotGivenException 
 	 */
-	public void sendSms(String to, String content) throws NotEnoughBalanceException, CantSendException {
+	public void sendSms(String to, String content) throws NotEnoughBalanceException, CantSendException, NumberNotGivenException {
+		if(to == null) {
+			throw new NumberNotGivenException();
+		}
 		Message message = new Message();
 		message.setContent(content);
 		message.setFrom(this.number);
@@ -88,10 +93,11 @@ public abstract class SmsHandy {
 	 * @param content - der Inhalt der SMS
 	 * @throws CantSendException 
 	 * @throws NotEnoughBalanceException 
+	 * @throws NumberNotGivenException 
 	 */
-	public void sendSmsDirect(SmsHandy peer, String content) throws CantSendException, NotEnoughBalanceException { 
+	public void sendSmsDirect(SmsHandy peer, String content) throws NotEnoughBalanceException, NumberNotGivenException, CantSendException { 
 		if(peer == null) {
-			throw new NullPointerException("Reciver's numer is not given");
+			throw new NumberNotGivenException();
 		}
 		Message message = new Message();
 		message.setContent(content);
