@@ -61,8 +61,9 @@ public abstract class SmsHandy {
 	 * @throws NotEnoughBalanceException 
 	 * @throws CantSendException 
 	 * @throws NumberNotGivenException 
+	 * @throws ProviderNotGivenException 
 	 */
-	public void sendSms(String to, String content) throws NotEnoughBalanceException, CantSendException, NumberNotGivenException {
+	public void sendSms(String to, String content) throws NotEnoughBalanceException, CantSendException, NumberNotGivenException, ProviderNotGivenException {
 		if(to == null) {
 			throw new NumberNotGivenException();
 		}
@@ -84,8 +85,9 @@ public abstract class SmsHandy {
 	
 	/**
 	 * Abstrakte Methode zum Bezahlen des SMS-Versand.
+	 * @throws NumberNotGivenException 
 	 */
-	public abstract void payForSms() throws NotEnoughBalanceException;
+	public abstract void payForSms() throws NotEnoughBalanceException, NumberNotGivenException;
 	
 	/**
 	 * Schickt eine SMS ohne den Provider an den Empfaenger

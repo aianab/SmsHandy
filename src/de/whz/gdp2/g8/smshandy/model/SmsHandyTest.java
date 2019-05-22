@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import de.whz.gdp2.g8.smshandy.exception.CantSendException;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
+import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 
 class SmsHandyTest {
 
@@ -22,7 +25,7 @@ class SmsHandyTest {
 	private SmsHandy phone2;
 	
 	@BeforeEach
-	public void init() throws NumberExistsException {
+	public void init() throws NumberExistsException, NumberNotExistException, ProviderNotGivenException {
 		reciever = "0312";
 		content = "Hi";
 		provider = new Provider();
@@ -30,13 +33,13 @@ class SmsHandyTest {
 		phone2 = new PrepaidSmsHandy(reciever, provider);
 	}
 	@Test
-	void testSendSms() throws NotEnoughBalanceException, CantSendException {
+	void testSendSms() throws NotEnoughBalanceException, CantSendException, NumberNotGivenException, ProviderNotGivenException {
 		phone1.sendSms(reciever, content);
 		assertEquals(phone1.getSent().get(0).getTo(), reciever);
 	}
 	
 	@Test
-	void testCanNotSendSms() throws NotEnoughBalanceException, CantSendException {
+	void testCanNotSendSms() throws NotEnoughBalanceException, CantSendException, NumberNotGivenException, ProviderNotGivenException {
 		phone1.sendSms("0", content);
 		assertEquals(phone1.getSent().get(0).getTo(), reciever);
 	}
@@ -60,7 +63,7 @@ class SmsHandyTest {
 	}
 	
 	@Test
-	void testSendSmsDirect() throws NotEnoughBalanceException, CantSendException {
+	void testSendSmsDirect() throws NotEnoughBalanceException, CantSendException, NumberNotGivenException {
 		phone1.sendSmsDirect(phone2, content);
 		assertEquals(phone1.getSent().get(0).getTo(), reciever);
 	}
