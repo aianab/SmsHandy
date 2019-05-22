@@ -12,6 +12,8 @@ import de.whz.gdp2.g8.smshandy.exception.CantSendException;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
+import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 
 /**
  * Klasse Provider
@@ -35,14 +37,15 @@ public class Provider {
 	 * 
 	 * @param message - die zu sendente SMS
 	 * @return true, wenn SMS gesendet werden konnte
+	 * @throws ProviderNotGivenException 
 	 * @throws CantSendException 
 	 * @throws NumberNotExistException 
 	 */
-	public boolean send(Message message) throws NotEnoughBalanceException, CantSendException {
+	public boolean send(Message message) throws NumberNotGivenException, ProviderNotGivenException, CantSendException  {
 		SmsHandy from = findProviderFor(message.getFrom()).phones.get(message.getFrom());
 		
 		if (from == null) {
-			return false;
+			throw new NumberNotGivenException();
 		}
 
 		if (message.getTo().equals(BALANCE_COMMAND)) {
@@ -58,11 +61,11 @@ public class Provider {
 		
 		Provider p = findProviderFor(message.getTo());
 		
-		if(p == null) throw new CantSendException();
+		if(p == null) throw new ProviderNotGivenException();
 		
 		SmsHandy to = p.phones.get(message.getTo());
 
-		if(to == null) throw new CantSendException();
+		if(to == null) throw new NumberNotGivenException();
 		
 		to.receiveSms(message);
 		return true;
@@ -91,10 +94,11 @@ public class Provider {
 	 * 
 	 * @param number - Nummer des Telefons
 	 * @param amount - Hoehe des Geldbetrages
+	 * @throws NumberNotGivenException 
 	 */
-	public void deposit(String number, int amount) throws NullPointerException {
+	public void deposit(String number, int amount) throws NumberNotGivenException {
 		if (number == null || number.isEmpty())
-			throw new NullPointerException("Number should not be null or empty");
+			throw new NumberNotGivenException();
 		credits.put(number, credits.get(number) + amount);
 	}
 
@@ -104,9 +108,9 @@ public class Provider {
 	 * @param number - Nummer des gewuenschten Handys
 	 * @return aktuelles Guthaben des Handys
 	 */
-	public int getCreditForSmsHandy(String number) throws NullPointerException {
+	public int getCreditForSmsHandy(String number) throws NumberNotGivenException {
 		if (number == null || number.isEmpty())
-			throw new NullPointerException("Number should not be null or empty");
+			throw new NumberNotGivenException();
 		return credits.get(number);
 	}
 
