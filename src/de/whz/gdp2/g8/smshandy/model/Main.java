@@ -1,11 +1,8 @@
 package de.whz.gdp2.g8.smshandy.model;
 
-import de.whz.gdp2.g8.smshandy.exception.WrongNumberOfRecipient;
+import de.whz.gdp2.g8.smshandy.exception.CantSendException;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
-import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
-import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
-import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 
 public class Main {
 	/**
@@ -17,13 +14,10 @@ public class Main {
 	/**
 	 * @param args
 	 * @throws NotEnoughBalanceException
-	 * @throws WrongNumberOfRecipient
+	 * @throws CantSendException
 	 * @throws NumberExistsException
-	 * @throws ProviderNotGivenException 
-	 * @throws NumberNotExistException 
-	 * @throws NumberNotGivenException 
 	 */
-	public static void main(String ...args) throws NotEnoughBalanceException, WrongNumberOfRecipient, NumberExistsException, NumberNotExistException, ProviderNotGivenException, NumberNotGivenException {
+	public static void main(String ...args) throws NotEnoughBalanceException, CantSendException, NumberExistsException {
 		Provider p = new Provider();
 //		Provider p2 = new Provider();
 		PrepaidSmsHandy phone1 = new PrepaidSmsHandy("123", p);

@@ -9,12 +9,12 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import de.whz.gdp2.g8.smshandy.exception.CantSendException;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
 import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
-import de.whz.gdp2.g8.smshandy.exception.WrongNumberOfRecipient;
 
 class SmsHandyTest {
 
@@ -32,21 +32,20 @@ class SmsHandyTest {
 		phone1 = new PrepaidSmsHandy("sender", provider);
 		phone2 = new PrepaidSmsHandy(reciever, provider);
 	}
-	
 	@Test
-	void testSendSms() throws NotEnoughBalanceException, NumberNotGivenException, ProviderNotGivenException, WrongNumberOfRecipient {
+	void testSendSms() throws NotEnoughBalanceException, CantSendException, NumberNotGivenException, ProviderNotGivenException {
 		phone1.sendSms(reciever, content);
 		assertEquals(phone1.getSent().get(0).getTo(), reciever);
 	}
 	
 	@Test
-	void testCanNotSendSms() throws NotEnoughBalanceException, NumberNotGivenException, ProviderNotGivenException, WrongNumberOfRecipient {
+	void testCanNotSendSms() throws NotEnoughBalanceException, CantSendException, NumberNotGivenException, ProviderNotGivenException {
 		phone1.sendSms("0", content);
 		assertEquals(phone1.getSent().get(0).getTo(), reciever);
 	}
 
 	@Test
-	void testReceiveSms() throws WrongNumberOfRecipient  {
+	void testReceiveSms() throws CantSendException {
 		Message message1 = new Message("sender1", reciever, "Hi!", new Date());
 		Message message2 = new Message("sender2", reciever, "Hi again!", new Date());
 		Message message3 = new Message("sender3", reciever, "Bye", new Date());		
@@ -64,9 +63,8 @@ class SmsHandyTest {
 	}
 	
 	@Test
-	void testSendSmsDirect() throws NotEnoughBalanceException, NumberNotGivenException, WrongNumberOfRecipient {
+	void testSendSmsDirect() throws NotEnoughBalanceException, CantSendException, NumberNotGivenException {
 		phone1.sendSmsDirect(phone2, content);
 		assertEquals(phone1.getSent().get(0).getTo(), reciever);
 	}
-	
 }
