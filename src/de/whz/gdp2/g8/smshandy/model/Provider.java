@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import de.whz.gdp2.g8.smshandy.exception.CantSendException;
+import de.whz.gdp2.g8.smshandy.exception.WrongNumberOfRecipient;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
@@ -38,10 +38,10 @@ public class Provider {
 	 * @param message - die zu sendente SMS
 	 * @return true, wenn SMS gesendet werden konnte
 	 * @throws ProviderNotGivenException 
-	 * @throws CantSendException 
+	 * @throws WrongNumberOfRecipient 
 	 * @throws NumberNotExistException 
 	 */
-	public boolean send(Message message) throws NumberNotGivenException, ProviderNotGivenException, CantSendException  {
+	public boolean send(Message message) throws NumberNotGivenException, ProviderNotGivenException, WrongNumberOfRecipient  {
 		SmsHandy from = findProviderFor(message.getFrom()).phones.get(message.getFrom());
 		
 		if (from == null) {

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import de.whz.gdp2.g8.smshandy.exception.CantSendException;
+import de.whz.gdp2.g8.smshandy.exception.WrongNumberOfRecipient;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
@@ -59,11 +59,11 @@ public abstract class SmsHandy {
 	 * @param to - der Empfaenger der SMS
 	 * @param content - der Inhalt der SMS
 	 * @throws NotEnoughBalanceException 
-	 * @throws CantSendException 
+	 * @throws WrongNumberOfRecipient 
 	 * @throws NumberNotGivenException 
 	 * @throws ProviderNotGivenException 
 	 */
-	public void sendSms(String to, String content) throws NotEnoughBalanceException, CantSendException, NumberNotGivenException, ProviderNotGivenException {
+	public void sendSms(String to, String content) throws NotEnoughBalanceException, WrongNumberOfRecipient, NumberNotGivenException, ProviderNotGivenException {
 		if(to == null) {
 			throw new NumberNotGivenException();
 		}
@@ -93,11 +93,11 @@ public abstract class SmsHandy {
 	 * Schickt eine SMS ohne den Provider an den Empfaenger
 	 * @param peer - das empfangende Handy
 	 * @param content - der Inhalt der SMS
-	 * @throws CantSendException 
+	 * @throws WrongNumberOfRecipient 
 	 * @throws NotEnoughBalanceException 
 	 * @throws NumberNotGivenException 
 	 */
-	public void sendSmsDirect(SmsHandy peer, String content) throws NotEnoughBalanceException, NumberNotGivenException, CantSendException { 
+	public void sendSmsDirect(SmsHandy peer, String content) throws NotEnoughBalanceException, NumberNotGivenException, WrongNumberOfRecipient { 
 		if(peer == null) {
 			throw new NumberNotGivenException();
 		}
@@ -156,11 +156,11 @@ public abstract class SmsHandy {
 	/**
 	 * Empfaengt eine SMS und speichert diese in den empfangenen SMS
 	 * @param message - das Message-Objekt, welches an das zweite Handy gesendet werden soll
-	 * @throws CantSendException 
+	 * @throws WrongNumberOfRecipient 
 	 */
-	public void receiveSms(Message message) throws CantSendException {
+	public void receiveSms(Message message) throws WrongNumberOfRecipient {
 		if(message.getTo() != this.number) {
-			throw new CantSendException();
+			throw new WrongNumberOfRecipient();
 		}
 		received.add(message);
 	}
