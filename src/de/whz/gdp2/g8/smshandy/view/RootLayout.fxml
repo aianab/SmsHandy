@@ -2,7 +2,7 @@
 
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefWidth="400.0" prefHeight="400.0" xmlns:fx="http://javafx.com/fxml/1" maxWidth="400.0">
 	<!-- TODO Add Nodes -->
 </BorderPane>
 

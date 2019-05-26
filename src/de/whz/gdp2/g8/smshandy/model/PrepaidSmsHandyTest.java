@@ -18,10 +18,10 @@ class PrepaidSmsHandyTest {
 	private PrepaidSmsHandy phone;
 	
 	@BeforeEach
-	public void init() throws NumberExistsException, NumberNotExistException, ProviderNotGivenException {
-	sender = "123";
-	provider = new Provider();
-	phone = new PrepaidSmsHandy(sender, provider);
+	public void init() throws Exception {
+		sender = "123";
+		provider = new Provider("");
+		phone = new PrepaidSmsHandy(sender, provider);
 	}
 	
 	@Test

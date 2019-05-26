@@ -19,7 +19,7 @@ public class TariffPlanSmsHandyTest {
 	@BeforeEach
 	public void init() throws NumberExistsException, NumberNotExistException, ProviderNotGivenException {
 		sender = "123";
-		provider = new Provider();
+		provider = new Provider("");
 		phone = new TariffPlanSmsHandy(sender, provider);
 	}
 	@Test()

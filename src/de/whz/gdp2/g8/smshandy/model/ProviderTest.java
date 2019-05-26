@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.whz.gdp2.g8.smshandy.exception.CantSendException;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
@@ -20,8 +19,8 @@ public class ProviderTest {
 
 	@Before
 	public void init() throws Exception {
-		this.provider1 = new Provider();
-		this.provider2 = new Provider();
+		this.provider1 = new Provider("Beeline");
+		this.provider2 = new Provider("O");
 
 		this.phone1 = new PrepaidSmsHandy("123", provider1);
 		this.phone2 = new TariffPlanSmsHandy("456", this.provider2);
@@ -33,7 +32,7 @@ public class ProviderTest {
 		assertEquals(90, provider1.getCreditForSmsHandy(phone1.getNumber()));
 	}
 
-	@Test(expected = CantSendException.class)
+	@Test(expected = Exception.class)
 	public void sendWithWrongNumber() throws Exception {
 		phone1.sendSms("woeij", "Hello");
 	}
