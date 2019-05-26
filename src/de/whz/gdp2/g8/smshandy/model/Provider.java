@@ -1,6 +1,7 @@
 package de.whz.gdp2.g8.smshandy.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,9 +34,7 @@ public class Provider {
 		providerList.add(this);
 	}
 	
-	public Map<String, SmsHandy> getPhones(){
-		return phones;
-	}
+	
 	/**
 	 * Sendet die SMS an den Empfaenger, wenn dieser bekannt ist
 	 * 
@@ -132,6 +131,10 @@ public class Provider {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public Collection<SmsHandy> getPhones() {
+		return phones.values();
 	}
 	
 	@Override
