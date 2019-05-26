@@ -9,6 +9,7 @@ import de.whz.gdp2.g8.smshandy.model.Provider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +27,9 @@ public class ProviderListController {
 	
 	@FXML
 	private Button newButton;
+	
+	@FXML
+	private Button removeButton;
 	
 	public ProviderListController() {
 
@@ -45,6 +49,10 @@ public class ProviderListController {
 		newButton.setOnMouseClicked(e -> {
 			showAddNewProviderWindow(list);
 		});
+		
+		removeButton.setOnMouseClicked(e -> {
+			removeProvider(list);
+		});
 	}
 	
 	
@@ -54,29 +62,42 @@ public class ProviderListController {
 		new Provider("Megacom");
 	}
 	
+	private void removeProvider(ObservableList<Provider> observableList) {
+		Provider p = providerListView.getSelectionModel().getSelectedItem();
+		Provider.providerList.remove(p);
+		observableList.remove(p);
+	}
+	
 	private void showAddNewProviderWindow(ObservableList<Provider> observableList) {
 		StackPane secondaryLayout = new StackPane();
-		secondaryLayout.getChildren().add(new Label("Hello"));
+		Label label = new Label("Please type the new provider name");
+		secondaryLayout.getChildren().add(label);
 		TextField providerNameField = new TextField();
 		Button addProviderButton = new Button("Add Provider");
-		addProviderButton.setOnMouseClicked(e -> {
-			Provider p = new Provider(providerNameField.getText());
-			observableList.add(p);
-			providerListView.setItems(observableList);
-		});
+		
+		secondaryLayout.getChildren().add(1, providerNameField);
+		secondaryLayout.getChildren().add(2, addProviderButton);
+		
+		secondaryLayout.setAlignment(label, Pos.TOP_CENTER);
+		secondaryLayout.setAlignment(providerNameField, Pos.CENTER_LEFT);
+		secondaryLayout.setAlignment(addProviderButton, Pos.BOTTOM_CENTER);
 		
 		Scene secondScene = new Scene(secondaryLayout, 230, 100);
 		
-		 // New window (Stage)
         Stage newWindow = new Stage();
         newWindow.setTitle("Second Stage");
         newWindow.setScene(secondScene);
 
-        // Set position of second window, related to primary window.
+
         newWindow.setX( mainClass.getPrimaryStage().getX() + 200);
         newWindow.setY(mainClass.getPrimaryStage().getY() + 100);
 
         newWindow.show();
+        
+        addProviderButton.setOnMouseClicked(e -> {
+			observableList.add(new Provider(providerNameField.getText()));
+			newWindow.close();
+		});
 	}
 	
 	
