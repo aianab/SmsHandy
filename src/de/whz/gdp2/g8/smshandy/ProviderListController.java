@@ -29,6 +29,9 @@ public class ProviderListController {
 	private Button newButton;
 	
 	@FXML
+	private Button detailsButton;
+	
+	@FXML
 	private Button removeButton;
 	
 	public ProviderListController() {
@@ -52,6 +55,10 @@ public class ProviderListController {
 		
 		removeButton.setOnMouseClicked(e -> {
 			removeProvider(list);
+		});
+		
+		detailsButton.setOnMouseClicked(e -> {
+			mainClass.showProviderInfo(providerListView.getSelectionModel().getSelectedItem());
 		});
 	}
 	

@@ -11,7 +11,7 @@
    <children>
       <ListView fx:id="providerListView" prefHeight="200.0" prefWidth="200.0" />
       <Button layoutX="10" layoutY="230.0" mnemonicParsing="false" text="New" fx:id="newButton"/>
-      <Button layoutX="65.0" layoutY="230.0" mnemonicParsing="false" text="Details" />
+      <Button layoutX="65.0" layoutY="230.0" mnemonicParsing="false" text="Details" fx:id="detailsButton"/>
       <Button layoutX="130.0" layoutY="230.0" mnemonicParsing="false" text="Remove" fx:id="removeButton"/>
    </children>
 </AnchorPane>
