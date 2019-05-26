@@ -91,7 +91,7 @@ public class ListOfSmsHandysController {
     		
     		NewSmsHandyAddingController controller = loader.getController();
     		controller.setMainClass(this.mainClass);
-//    		controller.setProvider(p);
+     		controller.setProvider(p);
     		
     		
             rootLayout.setCenter(listOfSmsHandys);
