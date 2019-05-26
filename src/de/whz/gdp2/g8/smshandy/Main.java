@@ -64,6 +64,7 @@ public class Main extends Application {
     		rootLayout.setCenter(providerListView);
     		
     		ProviderListController controller = loader.getController();
+    		controller.setMainClass(this);
     		
     	}catch (Exception e) {
 			e.printStackTrace();

@@ -10,8 +10,8 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.whz.gdp2.g8.smshandy.ProviderListController" BorderPane.alignment="CENTER">
    <children>
       <ListView fx:id="providerListView" prefHeight="200.0" prefWidth="200.0" />
-      <Button layoutX="10" layoutY="230.0" mnemonicParsing="false" text="New" />
+      <Button layoutX="10" layoutY="230.0" mnemonicParsing="false" text="New" fx:id="newButton"/>
       <Button layoutX="65.0" layoutY="230.0" mnemonicParsing="false" text="Details" />
-      <Button layoutX="130.0" layoutY="230.0" mnemonicParsing="false" text="Remove" fx:id="newButton"/>
+      <Button layoutX="130.0" layoutY="230.0" mnemonicParsing="false" text="Remove" />
    </children>
 </AnchorPane>
