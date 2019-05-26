@@ -1,5 +1,7 @@
 package de.whz.gdp2.g8.smshandy.view;
 
+import java.util.List;
+
 import de.whz.gdp2.g8.smshandy.Main;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
@@ -13,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -22,9 +25,12 @@ public class ListOfSmsHandysController {
 	private Label providerName;
 	@FXML
 	private Button addNewPhoneButton;
+	@FXML
+	private ListView<SmsHandy> listSmsHandysView;
 	
 	private Provider provider;
 	private Main mainClass;
+	
 	
 	public ListOfSmsHandysController() {
 		
@@ -41,26 +47,15 @@ public class ListOfSmsHandysController {
 	@FXML
 	private void initialize() {
 		final ObservableList<SmsHandy> list = FXCollections.observableArrayList();
-		initSmsHandys();
-		
+		list.setAll(provider.getPhones());
+		listSmsHandysView.setItems(list);
 	}
 	
-	private void initSmsHandys() {
-		for(Provider p : Provider.providerList) {
-			try {
-				new PrepaidSmsHandy("123", p);
-				new TariffPlanSmsHandy("456", p);
-			} catch (NumberExistsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NumberNotExistException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ProviderNotGivenException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+	private void deletePhone(ObservableList<SmsHandy> observableList) {
+		SmsHandy phone = listSmsHandysView.getSelectionModel().getSelectedItem();
+		provider.removeSmsHandy(phone.getNumber());
+		observableList.remove(phone);
 	}
+	
 	
 }

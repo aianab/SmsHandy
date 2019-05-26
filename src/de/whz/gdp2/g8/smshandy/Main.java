@@ -26,7 +26,7 @@ public class Main extends Application {
         this.primaryStage.setTitle("SmsHandy");
     	
         initRootLayout();
-        showFirstLayout();
+        showProviderInfo(new Provider("Beeline"));
     }
     
     
@@ -76,7 +76,7 @@ public class Main extends Application {
     public void showProviderInfo(Provider p) {
     	try {
     		FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(Main.class.getResource("ListOfSmsHandys.fxml"));
+    		loader.setLocation(Main.class.getResource("view/ListOfSmsHandys.fxml"));
     		AnchorPane providerListView = (AnchorPane) loader.load();
     		
     		rootLayout.setCenter(providerListView);

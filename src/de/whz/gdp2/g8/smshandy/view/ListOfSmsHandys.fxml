@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.BottomNavigationButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -22,20 +22,14 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TableView prefHeight="330.0" prefWidth="390.0">
-              <columns>
-                <TableColumn prefWidth="301.59998166561127" text="Hadys" />
-                <TableColumn prefWidth="87.20001220703125" text="Buttons" />
-              </columns>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" />
-               </VBox.margin>
-            </TableView>
-            <BottomNavigationButton alignment="BOTTOM_RIGHT" contentDisplay="BOTTOM" text="Add New Phone">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </BottomNavigationButton>
+            <ListView prefHeight="200.0" prefWidth="200.0" />
+            <HBox>
+               <children>
+                  <Button mnemonicParsing="false" text="Add New Phone" />
+                  <Button mnemonicParsing="false" text="Delete" />
+                  <Button mnemonicParsing="false" text="Info" />
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets left="10.0" />
