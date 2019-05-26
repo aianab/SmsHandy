@@ -1,6 +1,8 @@
 package de.whz.gdp2.g8.smshandy;
 
 
+import java.util.List;
+
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
 import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
@@ -24,10 +26,13 @@ public class ListOfSmsHandysController {
 	@FXML
 	private Button addNewPhoneButton;
 	@FXML
+	private Button removePhoneButton;
+	@FXML
 	private ListView<SmsHandy> listSmsHandysView;
 	
 	private Provider provider;
 	private Main mainClass;
+	private ObservableList<SmsHandy> list;
 	
 	
 	public ListOfSmsHandysController() {
@@ -36,7 +41,7 @@ public class ListOfSmsHandysController {
 	
 	public void setProvider(Provider provider) {
 		this.provider = provider;
-		final ObservableList<SmsHandy> list = FXCollections.observableArrayList();
+		list = FXCollections.observableArrayList();
 		list.setAll(provider.getPhones());
 		listSmsHandysView.setItems(list);
 	}
@@ -47,13 +52,14 @@ public class ListOfSmsHandysController {
 	
 	@FXML
 	private void initialize() {
-		
+		removePhoneButton.setOnMouseClicked(e -> {
+			deletePhone(listSmsHandysView.getSelectionModel().getSelectedItem());
+		});
 	}
 	
-	private void deletePhone(ObservableList<SmsHandy> observableList) {
-		SmsHandy phone = listSmsHandysView.getSelectionModel().getSelectedItem();
+	private void deletePhone(SmsHandy phone) {
 		provider.removeSmsHandy(phone.getNumber());
-		observableList.remove(phone);
+		list.remove(phone);
 	}
 	
 	
