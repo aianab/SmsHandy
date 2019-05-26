@@ -27,21 +27,17 @@ public class TariffPlanSmsHandyTest {
 		assertEquals(phone.canSendSms(), true);
 	}
 	
-	
-	@Test
-	void testCanNotSendSms() throws NumberExistsException, NotEnoughBalanceException {
-
-		for(int i = 0; i <=100; i++) {
-			phone.payForSms();
-		}
-		assertEquals(phone.canSendSms(), false);
-	}
-	
 	@Test
 	void testPayForSms() throws NumberExistsException, NotEnoughBalanceException {
 		int actualSmsAmount = 99;
 		phone.payForSms();
 		assertEquals(phone.getRemainingFreeSms(), actualSmsAmount);
+	}
+	
+	@Test
+	void testPayForSmsNotEnoughBalanceException() {
+		NotEnoughBalanceException exception = assertThrows(NotEnoughBalanceException.class, () ->{ for (int i = 0; i <200; i++) phone.payForSms(); } );
+		assertEquals("Your balance or amount of free sms is not enough to complete this transaction!", exception.getMessage());
 	}
 
 }

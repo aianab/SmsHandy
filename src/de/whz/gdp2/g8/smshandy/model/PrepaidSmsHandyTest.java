@@ -30,6 +30,12 @@ class PrepaidSmsHandyTest {
 		phone.payForSms();
 		assertEquals(provider.getCreditForSmsHandy(phone.getNumber()), actualBalance);
 	}
+	@Test
+	void testPayForSmsNotEnoughBalanceException() throws NumberNotGivenException{
+		phone.deposit(-100);
+		NotEnoughBalanceException exception = assertThrows(NotEnoughBalanceException.class, () -> phone.payForSms());
+		assertEquals("Your balance or amount of free sms is not enough to complete this transaction!", exception.getMessage());
+	}
 
 	@Test
 	void testDeposit() throws NumberExistsException, NumberNotGivenException{
