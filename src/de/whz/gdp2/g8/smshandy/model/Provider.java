@@ -137,6 +137,11 @@ public class Provider {
 		return phones.values();
 	}
 	
+	public void removeSmsHandy(String number) {
+		phones.remove(number);
+		credits.remove(number);
+	}
+	
 	@Override
 	public String toString() {
 		return name;
