@@ -23,13 +23,14 @@ public class TariffPlanSmsHandyTest {
 		phone = new TariffPlanSmsHandy(sender, provider);
 	}
 	@Test()
-	void testCanSendSms() throws NumberExistsException {
+	void testCanSendSms() throws Exception {
 		assertEquals(phone.canSendSms(), true);
 	}
 	
 	
 	@Test
 	void testCanNotSendSms() throws NumberExistsException, NotEnoughBalanceException {
+
 		for(int i = 0; i <=100; i++) {
 			phone.payForSms();
 		}

@@ -9,6 +9,7 @@ import de.whz.gdp2.g8.smshandy.exception.CantSendException;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
 
 public class ProviderTest {
 
@@ -61,7 +62,7 @@ public class ProviderTest {
 	}
 	
 	@Test
-	public void register() throws NumberExistsException {
+	public void register() throws Exception {
 		new PrepaidSmsHandy("789", provider1);
 		new TariffPlanSmsHandy("911", provider1);
 	}
@@ -83,8 +84,8 @@ public class ProviderTest {
 		assert provider1.getCreditForSmsHandy(phone1.getNumber()) == 90;
 	}
 	
-	@Test(expected = NullPointerException.class)
-	public void getCreditForSmsHandyWithNotExistingNumber() {
+	@Test(expected = NumberNotGivenException.class)
+	public void getCreditForSmsHandyWithNotExistingNumber() throws Exception {
 		provider1.getCreditForSmsHandy("nothing");
 	}
 
