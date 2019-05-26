@@ -45,7 +45,7 @@
                               <Insets right="30.0" />
                            </opaqueInsets>
                         </Button>
-                        <Button mnemonicParsing="false" text="Chage Provider" />
+                        <Button mnemonicParsing="false" text="Chage Provider" fx:id="changeProviderButton"/>
                     </buttons>
                      <padding>
                         <Insets left="30.0" />

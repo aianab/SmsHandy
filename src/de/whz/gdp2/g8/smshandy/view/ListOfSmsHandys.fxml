@@ -38,7 +38,7 @@
 					<children>
 						<Button mnemonicParsing="false" text="Add New Phone" />
 						<Button mnemonicParsing="false" text="Delete"  fx:id="removePhoneButton" />
-						<Button mnemonicParsing="false" text="Info" />
+						<Button mnemonicParsing="false" text="Info" fx:id="showSmsHandyInfoButton"/>
 					</children>
 				</HBox>
 			</children>
