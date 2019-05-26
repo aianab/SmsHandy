@@ -1,6 +1,7 @@
 package de.whz.gdp2.g8.smshandy.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import de.whz.gdp2.g8.smshandy.exception.CantSendException;
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
@@ -31,17 +31,18 @@ public class Provider {
 		providerList.add(this);
 	}
 	
-
+	public Map<String, SmsHandy> getPhones(){
+		return phones;
+	}
 	/**
 	 * Sendet die SMS an den Empfaenger, wenn dieser bekannt ist
 	 * 
 	 * @param message - die zu sendente SMS
 	 * @return true, wenn SMS gesendet werden konnte
-	 * @throws ProviderNotGivenException 
-	 * @throws CantSendException 
+	 * @throws ProviderNotGivenException  
 	 * @throws NumberNotExistException 
 	 */
-	public boolean send(Message message) throws NumberNotGivenException, ProviderNotGivenException, CantSendException  {
+	public boolean send(Message message) throws NumberNotGivenException, ProviderNotGivenException, NumberNotExistException  {
 		SmsHandy from = findProviderFor(message.getFrom()).phones.get(message.getFrom());
 		
 		if (from == null) {
