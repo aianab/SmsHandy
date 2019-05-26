@@ -64,9 +64,6 @@ public abstract class SmsHandy {
 	 * @throws NumberNotExistException 
 	 */
 	public void sendSms(String to, String content) throws NotEnoughBalanceException, NumberNotExistException, ProviderNotGivenException, NumberNotGivenException {
-		if (provider.getPhones().get(to) == null) {
-			throw new NumberNotExistException();
-		}
 		Message message = new Message();
 		message.setContent(content);
 		message.setFrom(this.number);
