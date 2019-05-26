@@ -1,8 +1,13 @@
 package de.whz.gdp2.g8.smshandy.view;
 
 import de.whz.gdp2.g8.smshandy.Main;
+import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
+import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
+import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.model.SmsHandy;
+import de.whz.gdp2.g8.smshandy.model.TariffPlanSmsHandy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,10 +22,16 @@ public class ListOfSmsHandysController {
 	private Label providerName;
 	@FXML
 	private Button addNewPhoneButton;
+	
+	private Provider provider;
 	private Main mainClass;
 	
 	public ListOfSmsHandysController() {
 		
+	}
+	
+	public void setProvider(Provider provider) {
+		this.provider = provider;
 	}
 	
 	public void setMainClass(Main main) {
@@ -36,10 +47,20 @@ public class ListOfSmsHandysController {
 	
 	private void initSmsHandys() {
 		for(Provider p : Provider.providerList) {
-			new SmsHandy(p.toString() + " dklsf", p);
+			try {
+				new PrepaidSmsHandy("123", p);
+				new TariffPlanSmsHandy("456", p);
+			} catch (NumberExistsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NumberNotExistException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ProviderNotGivenException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		new Provider("O!");
-		new Provider("Megacom");
 	}
 	
 }
