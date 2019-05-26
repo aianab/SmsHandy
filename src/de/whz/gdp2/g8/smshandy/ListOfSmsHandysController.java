@@ -1,6 +1,5 @@
-package de.whz.gdp2.g8.smshandy.view;
+package de.whz.gdp2.g8.smshandy;
 
-import de.whz.gdp2.g8.smshandy.Main;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
 import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;

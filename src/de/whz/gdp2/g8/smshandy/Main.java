@@ -3,7 +3,6 @@ package de.whz.gdp2.g8.smshandy;
 import java.io.IOException;
 
 import de.whz.gdp2.g8.smshandy.model.Provider;
-import de.whz.gdp2.g8.smshandy.view.ListOfSmsHandysController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -76,13 +75,14 @@ public class Main extends Application {
     public void showProviderInfo(Provider p) {
     	try {
     		FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(Main.class.getResource("ListOfSmsHandys.fxml"));
-    		AnchorPane providerListView = (AnchorPane) loader.load();
+    		loader.setLocation(Main.class.getResource("view/ListOfSmsHandys.fxml"));
+    		AnchorPane listOfSmsHandys = (AnchorPane) loader.load();
     		
-    		rootLayout.setCenter(providerListView);
+    		rootLayout.setCenter(listOfSmsHandys);
     		
     		ListOfSmsHandysController controller = loader.getController();
     		controller.setMainClass(this);
+    		controller.setProvider(p);
     		
     	}catch (Exception e) {
 			e.printStackTrace();
