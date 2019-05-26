@@ -21,11 +21,13 @@ import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 public class Provider {
 	public static List<Provider> providerList = new ArrayList<>();
 	public static final String BALANCE_COMMAND = "*101#";
+	private String name;
 	private Map<String, Integer> credits;
 	private Map<String, SmsHandy> phones;
 
 	/** Konstruktor fuer Objekte der Klasse Provider */
-	public Provider() {
+	public Provider(String name) {
+		this.name = name;
 		credits = new HashMap<>();
 		phones = new HashMap<>();
 		providerList.add(this);
@@ -125,5 +127,14 @@ public class Provider {
 			}
 		}
 		return null;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 }

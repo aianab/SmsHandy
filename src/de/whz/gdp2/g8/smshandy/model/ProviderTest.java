@@ -20,8 +20,8 @@ public class ProviderTest {
 
 	@Before
 	public void init() throws Exception {
-		this.provider1 = new Provider();
-		this.provider2 = new Provider();
+		this.provider1 = new Provider("Beeline");
+		this.provider2 = new Provider("O");
 
 		this.phone1 = new PrepaidSmsHandy("123", provider1);
 		this.phone2 = new TariffPlanSmsHandy("456", this.provider2);

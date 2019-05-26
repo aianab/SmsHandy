@@ -28,7 +28,7 @@ class SmsHandyTest {
 	public void init() throws NumberExistsException, NumberNotExistException, ProviderNotGivenException {
 		reciever = "0312";
 		content = "Hi";
-		provider = new Provider();
+		provider = new Provider("");
 		phone1 = new PrepaidSmsHandy("sender", provider);
 		phone2 = new PrepaidSmsHandy(reciever, provider);
 	}

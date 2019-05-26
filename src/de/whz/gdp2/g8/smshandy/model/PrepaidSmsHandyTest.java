@@ -17,7 +17,7 @@ class PrepaidSmsHandyTest {
 	@BeforeEach
 	public void init() throws Exception {
 		sender = "123";
-		provider = new Provider();
+		provider = new Provider("");
 		phone = new PrepaidSmsHandy(sender, provider);
 	}
 
