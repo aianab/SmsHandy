@@ -55,10 +55,26 @@ public class Main extends Application {
         return primaryStage;
     }
 
-    private void showFirstLayout() {
+    public void showFirstLayout() {
     	try {
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(Main.class.getResource("view/ProviderListOverview.fxml"));
+    		AnchorPane providerListView = (AnchorPane) loader.load();
+    		
+    		rootLayout.setCenter(providerListView);
+    		
+    		ProviderListController controller = loader.getController();
+    		controller.setMainClass(this);
+    		
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public void showProviderInfo(Provider p) {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(Main.class.getResource("view/ListOfSmsHandys.fxml"));
     		AnchorPane providerListView = (AnchorPane) loader.load();
     		
     		rootLayout.setCenter(providerListView);
