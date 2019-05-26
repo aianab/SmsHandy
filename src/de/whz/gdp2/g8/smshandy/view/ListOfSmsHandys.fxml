@@ -24,8 +24,8 @@
             </Label>
             <TableView prefHeight="330.0" prefWidth="390.0">
               <columns>
-                <TableColumn prefWidth="301.59998166561127" text="C1" />
-                <TableColumn prefWidth="87.20001220703125" text="C2" />
+                <TableColumn prefWidth="301.59998166561127" text="Hadys" />
+                <TableColumn prefWidth="87.20001220703125" text="Buttons" />
               </columns>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" />
