@@ -28,6 +28,9 @@ public class ProviderListController {
 	@FXML
 	private Button newButton;
 	
+	@FXML
+	private Button removeButton;
+	
 	public ProviderListController() {
 
 	}
@@ -46,6 +49,10 @@ public class ProviderListController {
 		newButton.setOnMouseClicked(e -> {
 			showAddNewProviderWindow(list);
 		});
+		
+		removeButton.setOnMouseClicked(e -> {
+			removeProvider(list);
+		});
 	}
 	
 	
@@ -53,6 +60,12 @@ public class ProviderListController {
 		new Provider("Beeline");
 		new Provider("O!");
 		new Provider("Megacom");
+	}
+	
+	private void removeProvider(ObservableList<Provider> observableList) {
+		Provider p = providerListView.getSelectionModel().getSelectedItem();
+		Provider.providerList.remove(p);
+		observableList.remove(p);
 	}
 	
 	private void showAddNewProviderWindow(ObservableList<Provider> observableList) {
