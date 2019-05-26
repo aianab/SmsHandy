@@ -2,6 +2,10 @@ package de.whz.gdp2.g8.smshandy;
 
 import java.io.IOException;
 
+import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
+import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
+import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -65,7 +69,6 @@ public class Main extends Application {
     		
     		ProviderListController controller = loader.getController();
     		controller.setMainClass(this);
-    		
     	}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,15 +77,19 @@ public class Main extends Application {
 
     public void showProviderInfo(Provider p) {
     	try {
+    		primaryStage.close();
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(Main.class.getResource("view/ListOfSmsHandys.fxml"));
     		AnchorPane listOfSmsHandys = (AnchorPane) loader.load();
     		
-    		rootLayout.setCenter(listOfSmsHandys);
     		
     		ListOfSmsHandysController controller = loader.getController();
     		controller.setMainClass(this);
     		controller.setProvider(p);
+    		
+    		
+            rootLayout.setCenter(listOfSmsHandys);
+    		primaryStage.show();
     		
     	}catch (Exception e) {
 			e.printStackTrace();

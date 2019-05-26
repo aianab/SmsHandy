@@ -5,7 +5,12 @@ package de.whz.gdp2.g8.smshandy;
 import java.util.Arrays;
 import java.util.List;
 
+import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
+import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
+import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
+import de.whz.gdp2.g8.smshandy.model.TariffPlanSmsHandy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -64,9 +69,28 @@ public class ProviderListController {
 	
 	
 	private void initProviders() {
-		new Provider("Beeline");
-		new Provider("O!");
-		new Provider("Megacom");
+		
+		try {
+			Provider b = new Provider("Beeline");
+			new PrepaidSmsHandy("lksdjf", b);
+			
+			Provider o = new Provider("O!");
+			new TariffPlanSmsHandy("123", o);
+			
+			Provider m = new Provider("Megacom");
+			new TariffPlanSmsHandy("ewrr3", m);
+			
+		} catch (NumberExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NumberNotExistException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProviderNotGivenException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	private void removeProvider(ObservableList<Provider> observableList) {

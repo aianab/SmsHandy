@@ -162,4 +162,8 @@ public abstract class SmsHandy {
 		received.add(message);
 	}
 	
+	@Override
+	public String toString() {
+		return number;
+	}
 }
