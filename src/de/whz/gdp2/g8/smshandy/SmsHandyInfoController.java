@@ -36,6 +36,9 @@ public class SmsHandyInfoController {
 	@FXML
 	private Button changeProviderButton;
 	
+	@FXML
+	private Button backButton;
+	
 	
 	public SmsHandyInfoController() {
 		
@@ -46,10 +49,14 @@ public class SmsHandyInfoController {
 		changeProviderButton.setOnMouseClicked(e -> {
 			showChangeProviderView();
 		});
+		
 	}
 	
 	public void setMainClass(Main main) {
 		this.mainClass = main;
+		backButton.setOnMouseClicked(e -> {
+			mainClass.showProviderInfo(phone.getProvider());
+		});
 	}
 	
 	public void setSmsHandy(SmsHandy phone) {

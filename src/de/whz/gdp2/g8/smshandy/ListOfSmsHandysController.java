@@ -39,6 +39,9 @@ public class ListOfSmsHandysController {
 
 	@FXML
 	private Button showSmsHandyInfoButton;
+	
+	@FXML
+	private Button backButton;
 
 	@FXML
 	private ListView<SmsHandy> listSmsHandysView;
@@ -51,7 +54,7 @@ public class ListOfSmsHandysController {
 	private Stage primaryStage;
 
 	public ListOfSmsHandysController() {
-
+		
 	}
 
 	public void setProvider(Provider provider) {
@@ -59,10 +62,18 @@ public class ListOfSmsHandysController {
 		list = FXCollections.observableArrayList();
 		list.setAll(provider.getPhones());
 		listSmsHandysView.setItems(list);
+		
 	}
 
 	public void setMainClass(Main main) {
 		this.mainClass = main;
+		mainClass.getPrimaryStage().setOnCloseRequest(e -> {
+			mainClass.showFirstLayout();
+		});
+		
+		backButton.setOnMouseClicked(e -> {
+			mainClass.showFirstLayout();
+		});
 	}
 
 	public void setRootLayout(BorderPane rootLayout) {
@@ -87,10 +98,9 @@ public class ListOfSmsHandysController {
 
 		{
 			addNewPhone(provider);
-
 		});
+		
 	}
-
 
 	private void deletePhone(SmsHandy phone) {
 		provider.removeSmsHandy(phone.getNumber());

@@ -27,6 +27,10 @@ public class ProviderListController {
 	
 	private Main mainClass;
 	
+	static {
+		initProviders();
+	}
+	
 	@FXML
 	private ListView<Provider> providerListView;
 	
@@ -50,7 +54,7 @@ public class ProviderListController {
 	@FXML
 	private void initialize() {
 		final ObservableList<Provider> list = FXCollections.observableArrayList();
-		initProviders();
+		
 		list.addAll(Provider.providerList);
 		providerListView.setItems(list);
 		
@@ -68,7 +72,7 @@ public class ProviderListController {
 	}
 	
 	
-	private void initProviders() {
+	private static void initProviders() {
 		
 		try {
 			Provider b = new Provider("Beeline");
