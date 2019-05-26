@@ -14,12 +14,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+
+import javafx.scene.Node;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+
+import javafx.scene.layout.BorderPane;
+
 import javafx.stage.Stage;
 
 public class ListOfSmsHandysController {
@@ -41,6 +47,9 @@ public class ListOfSmsHandysController {
 	private Main mainClass;
 	private ObservableList<SmsHandy> list;
 
+	private BorderPane rootLayout;
+	private Stage primaryStage;
+
 	public ListOfSmsHandysController() {
 
 	}
@@ -56,16 +65,32 @@ public class ListOfSmsHandysController {
 		this.mainClass = main;
 	}
 
+	public void setRootLayout(BorderPane rootLayout) {
+		this.rootLayout = rootLayout;
+	}
+
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+	}
+
 	@FXML
 	private void initialize() {
 		removePhoneButton.setOnMouseClicked(e -> {
 			deletePhone(listSmsHandysView.getSelectionModel().getSelectedItem());
 		});
-		
+
 		showSmsHandyInfoButton.setOnMouseClicked(e -> {
 			showSmsHandyInfo();
 		});
+
+		addNewPhoneButton.setOnMouseClicked(e ->
+
+		{
+			addNewPhone(provider);
+
+		});
 	}
+
 
 	private void deletePhone(SmsHandy phone) {
 		provider.removeSmsHandy(phone.getNumber());
@@ -84,7 +109,7 @@ public class ListOfSmsHandysController {
 			SmsHandyInfoController controller = loader.getController();
 			controller.setSmsHandy(listSmsHandysView.getSelectionModel().getSelectedItem());
 			controller.setMainClass(mainClass);
-			
+
 			mainClass.setRootPane(smsHandyInfo);
 			primaryStage.show();
 		} catch (IOException e) {
@@ -92,4 +117,24 @@ public class ListOfSmsHandysController {
 			e.printStackTrace();
 		}
 	}
+
+	public void addNewPhone(Provider p) {
+		try {
+			primaryStage.close();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/NewSmsHandyAdding.fxml"));
+			AnchorPane listOfSmsHandys = (AnchorPane) loader.load();
+
+			NewSmsHandyAddingController controller = loader.getController();
+			controller.setMainClass(this.mainClass);
+//    		controller.setProvider(p);
+
+			rootLayout.setCenter(listOfSmsHandys);
+			primaryStage.show();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
