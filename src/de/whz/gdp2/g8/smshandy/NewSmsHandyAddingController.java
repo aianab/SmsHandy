@@ -20,6 +20,8 @@ public class NewSmsHandyAddingController {
 	@FXML
 	private Button createPhoneButton;
 	private Provider provider;
+	private String newNumber;
+	private String selectedTariff;
 
 	public void setProvider(Provider provider) {
 		this.provider = provider;
@@ -31,12 +33,35 @@ public class NewSmsHandyAddingController {
 	
 	@FXML
 	private void initialize() {
-		String newNumber = newNumberTextField.getAccessibleText();
-		try {
-			tariffsComboBox.getItems().addAll(
+		 newNumber = newNumberTextField.getText();
+		
+		tariffsComboBox.getItems().addAll(
 			   "TariffPlanSmsHandy",
-			   " PrepaidSmsHandy"
-		);
+			   " PrepaidSmsHandy");
+			
+
+		createPhoneButton.setOnMouseClicked(e -> {
+			createNewPhone(newNumber, tariffsComboBox.getValue());
+		});
+	
 	}
+	
+	public void createNewPhone(String number, String selectedTariffPlan) {
+		if(selectedTariffPlan == "TariffPlanSmsHandy") {
+			try {
+				new TariffPlanSmsHandy(number, provider);
+			} catch (NumberExistsException | NumberNotExistException | ProviderNotGivenException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else {
+			try {
+				new PrepaidSmsHandy(number, provider);
+			} catch (NumberExistsException | NumberNotExistException | ProviderNotGivenException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

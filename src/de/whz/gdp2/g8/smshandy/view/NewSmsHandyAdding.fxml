@@ -46,7 +46,7 @@
             <Button mnemonicParsing="false" text="Info" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <HBox prefHeight="93.0" prefWidth="310.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="140.0" text="Create">
+                  <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="140.0" text="Create" fx:id="createPhoneButton">
                      <HBox.margin>
                         <Insets right="80.0" />
                      </HBox.margin>
