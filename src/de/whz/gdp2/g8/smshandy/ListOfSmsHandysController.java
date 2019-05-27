@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 public class ListOfSmsHandysController {
 
 	@FXML
-	private Label providerName;
+	private Label providerNameLabel;
 	@FXML
 	private Button addNewPhoneButton;
 	@FXML
@@ -62,7 +62,7 @@ public class ListOfSmsHandysController {
 		list = FXCollections.observableArrayList();
 		list.setAll(provider.getPhones());
 		listSmsHandysView.setItems(list);
-		
+		providerNameLabel.setText(provider.getName());
 	}
 
 	public void setMainClass(Main main) {
@@ -97,7 +97,7 @@ public class ListOfSmsHandysController {
 		addNewPhoneButton.setOnMouseClicked(e ->
 
 		{
-			addNewPhone(provider);
+			addNewPhone();
 		});
 		
 	}
@@ -128,7 +128,7 @@ public class ListOfSmsHandysController {
 		}
 	}
 
-	public void addNewPhone(Provider p) {
+	public void addNewPhone() {
 		try {
 			primaryStage.close();
 			FXMLLoader loader = new FXMLLoader();
@@ -137,7 +137,7 @@ public class ListOfSmsHandysController {
 
 			NewSmsHandyAddingController controller = loader.getController();
 			controller.setMainClass(this.mainClass);
-//    		controller.setProvider(p);
+			controller.setProvider(provider);
 
 			rootLayout.setCenter(listOfSmsHandys);
 			primaryStage.show();

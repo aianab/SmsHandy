@@ -12,11 +12,10 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.whz.gdp2.g8.smshandy.ListOfSmsHandysController">
 	<children>
-		<Label>Hello</Label>
 
 		<VBox prefHeight="500.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
-				<Label text="Beeline">
+				<Label fx:id="providerNameLabel">
 					<VBox.margin>
 						<Insets left="150.0" />
 					</VBox.margin>
