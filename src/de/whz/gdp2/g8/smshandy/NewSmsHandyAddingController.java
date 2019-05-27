@@ -22,15 +22,13 @@ public class NewSmsHandyAddingController {
 	private Button createPhoneButton;
 	@FXML
 	private Button cancelButton;
-	@FXML
-	private Label providerName;
+
 	private Provider provider;
 	private String newNumber;
 	private String selectedTariff;
 
 	public void setProvider(Provider provider) {
 		this.provider = provider;
-		providerName.setText(provider.getName());
 	}
 
 	public void setMainClass(Main main) {
