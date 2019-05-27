@@ -9,6 +9,7 @@ import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadListener;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -96,4 +97,7 @@ public class Main extends Application {
 		}
 	}
 
+    public void setRootPane(AnchorPane pane) {
+    	rootLayout.setCenter(pane);
+    }
 }
