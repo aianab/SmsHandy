@@ -81,7 +81,7 @@ public class NewSmsHandyAddingController {
 			 alert.setContentText("TariffPlanSmsHandy provides 100 free Sms");
 		 }
 		 else if (selectedTariffPlan == "PrepaidSmsHandy") {
-			 alert.setContentText("TariffPlanSmsHandy deposit in amount 100 units.\n One Sms costs 10 units");
+			 alert.setContentText("TariffPlanSmsHandy deposit in amount 100 units.\nOne Sms costs 10 units");
 			 
 			}
 
