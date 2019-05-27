@@ -78,6 +78,7 @@ public class SmsHandyInfoController {
 		secondaryLayout.getChildren().add(label);
 		ListView<Provider> providerListView = new ListView<Provider>();
 		providerListView.setItems(FXCollections.observableArrayList(Provider.providerList));
+		providerListView.getSelectionModel().select(0);
 		Button addProviderButton = new Button("Change provider");
 		
 		secondaryLayout.getChildren().add(1, providerListView);

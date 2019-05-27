@@ -39,6 +39,7 @@ public class NewSmsHandyAddingController {
 	private void initialize() {
 
 		tariffsComboBox.getItems().addAll("TariffPlanSmsHandy", "PrepaidSmsHandy");
+		tariffsComboBox.getSelectionModel().select(0);
 
 		createPhoneButton.setOnMouseClicked(e -> {
 			createNewPhone(tariffsComboBox.getValue());

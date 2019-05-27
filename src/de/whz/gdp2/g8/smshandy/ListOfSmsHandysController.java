@@ -62,6 +62,7 @@ public class ListOfSmsHandysController {
 		list = FXCollections.observableArrayList();
 		list.setAll(provider.getPhones());
 		listSmsHandysView.setItems(list);
+		listSmsHandysView.getSelectionModel().select(0);
 		providerNameLabel.setText(provider.getName());
 	}
 

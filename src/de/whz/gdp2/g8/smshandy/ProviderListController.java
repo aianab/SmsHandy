@@ -57,6 +57,7 @@ public class ProviderListController {
 		
 		list.addAll(Provider.providerList);
 		providerListView.setItems(list);
+		providerListView.getSelectionModel().select(0);
 		
 		newButton.setOnMouseClicked(e -> {
 			showAddNewProviderWindow(list);
@@ -69,6 +70,7 @@ public class ProviderListController {
 		detailsButton.setOnMouseClicked(e -> {
 			mainClass.showProviderInfo(providerListView.getSelectionModel().getSelectedItem());
 		});
+		
 	}
 	
 	
