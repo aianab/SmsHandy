@@ -43,7 +43,7 @@
             </Label>
             <TextField GridPane.columnIndex="1" fx:id="newNumberTextField"/>
             <ComboBox prefHeight="26.0" prefWidth="275.0" GridPane.columnSpan="2" GridPane.rowIndex="1" fx:id="tariffsComboBox"/>
-            <Button mnemonicParsing="false" text="Info" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" text="Info" GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="infoTariffButton"/>
             <HBox prefHeight="93.0" prefWidth="310.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
                <children>
                   <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="140.0" text="Create" fx:id="createPhoneButton">

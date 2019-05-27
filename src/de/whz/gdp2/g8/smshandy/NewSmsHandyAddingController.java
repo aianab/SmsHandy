@@ -8,6 +8,8 @@ import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.model.TariffPlanSmsHandy;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -22,6 +24,8 @@ public class NewSmsHandyAddingController {
 	private Button createPhoneButton;
 	@FXML
 	private Button cancelButton;
+	@FXML
+	private Button infoTariffButton;
 
 	private Provider provider;
 	private String newNumber;
@@ -48,6 +52,10 @@ public class NewSmsHandyAddingController {
 		cancelButton.setOnMouseClicked(e -> {
 			mainClass.showProviderInfo(provider);
 		});
+		
+		infoTariffButton.setOnMouseClicked(e -> {
+			infoAboutTariff(tariffsComboBox.getValue());
+		});
 
 	}
 
@@ -64,4 +72,19 @@ public class NewSmsHandyAddingController {
 			e.printStackTrace();
 		}
 	}
+	
+	 private void infoAboutTariff(String selectedTariffPlan) {
+		 Alert alert = new Alert(AlertType.INFORMATION);
+		 alert.setTitle("Information Dialog");
+		 alert.setHeaderText("Information about selected tariff plan");
+		 if (selectedTariffPlan == "TariffPlanSmsHandy") {
+			 alert.setContentText("TariffPlanSmsHandy provides 100 free Sms");
+		 }
+		 else if (selectedTariffPlan == "PrepaidSmsHandy") {
+			 alert.setContentText("TariffPlanSmsHandy deposit in amount 100 units.\n One Sms costs 10 units");
+			 
+			}
+
+		 alert.showAndWait();
+	 }
 }

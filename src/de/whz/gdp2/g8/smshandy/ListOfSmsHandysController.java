@@ -63,7 +63,6 @@ public class ListOfSmsHandysController {
 		list.setAll(provider.getPhones());
 		listSmsHandysView.setItems(list);
 		listSmsHandysView.getSelectionModel().select(0);
-		providerNameLabel.setText(provider.getName());
 	}
 
 	public void setMainClass(Main main) {
