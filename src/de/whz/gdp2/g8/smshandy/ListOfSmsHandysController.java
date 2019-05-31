@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
+import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
 import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
@@ -14,18 +15,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.layout.BorderPane;
-
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ListOfSmsHandysController {
@@ -36,10 +38,10 @@ public class ListOfSmsHandysController {
 	private Button addNewPhoneButton;
 	@FXML
 	private Button removePhoneButton;
-
 	@FXML
 	private Button showSmsHandyInfoButton;
-	
+	@FXML
+	private Button loadBalanceButton;
 	@FXML
 	private Button backButton;
 
@@ -99,6 +101,9 @@ public class ListOfSmsHandysController {
 		{
 			addNewPhone();
 		});
+		loadBalanceButton.setOnMouseClicked(e -> {
+			loadBalance();
+		});
 		
 	}
 
@@ -145,6 +150,47 @@ public class ListOfSmsHandysController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void loadBalance() {
+		StackPane secondaryLayout = new StackPane();
+		Label label = new Label("Please enter amount of units you want to load");
+		secondaryLayout.getChildren().add(label);
+		TextField unitsAmountField = new TextField();
+		Button loadUnitsButton = new Button("Load");
+		
+		secondaryLayout.getChildren().add(1, unitsAmountField);
+		secondaryLayout.getChildren().add(2, loadUnitsButton);
+		
+		secondaryLayout.setAlignment(label, Pos.TOP_CENTER);
+		secondaryLayout.setAlignment(unitsAmountField, Pos.CENTER_LEFT);
+		secondaryLayout.setAlignment(loadUnitsButton, Pos.BOTTOM_CENTER);
+		
+		Scene secondScene = new Scene(secondaryLayout, 250, 100);
+		
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Second Stage");
+        newWindow.setScene(secondScene);
+
+
+        newWindow.setX( mainClass.getPrimaryStage().getX() + 200);
+        newWindow.setY(mainClass.getPrimaryStage().getY() + 100);
+
+        newWindow.show();
+        
+        loadUnitsButton.setOnMouseClicked(e -> {
+        	PrepaidSmsHandy phone = (PrepaidSmsHandy) listSmsHandysView.getSelectionModel().getSelectedItem();
+        	try {
+				phone.deposit(Integer.parseInt(unitsAmountField.getText()));
+			} catch (NumberFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (NumberNotGivenException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+			newWindow.close();
+		});
 	}
 
 }

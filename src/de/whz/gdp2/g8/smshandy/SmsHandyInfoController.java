@@ -4,6 +4,7 @@ import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.model.SmsHandy;
+import javafx.beans.binding.SetBinding;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -38,7 +39,6 @@ public class SmsHandyInfoController {
 	
 	@FXML
 	private Button backButton;
-	
 	
 	public SmsHandyInfoController() {
 		
