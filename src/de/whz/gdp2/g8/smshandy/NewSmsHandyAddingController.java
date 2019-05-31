@@ -7,6 +7,7 @@ import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.model.TariffPlanSmsHandy;
+import de.whz.gdp2.g8.smshandy.util.AlertUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -70,6 +71,7 @@ public class NewSmsHandyAddingController {
 		} catch (NumberExistsException | NumberNotExistException | ProviderNotGivenException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			AlertUtil.showAlert(e.getMessage(), mainClass);
 		}
 	}
 	

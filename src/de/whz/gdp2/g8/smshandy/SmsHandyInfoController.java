@@ -7,6 +7,7 @@ import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
 import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.model.SmsHandy;
+import de.whz.gdp2.g8.smshandy.util.AlertUtil;
 import javafx.beans.binding.SetBinding;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -164,9 +165,8 @@ public class SmsHandyInfoController {
 			try {
 				phone.sendSms(toField.getText(), msgArea.getText());
 			} catch (NotEnoughBalanceException | NumberNotExistException | ProviderNotGivenException
-					| NumberNotGivenException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+					| NumberNotGivenException ex) {
+				AlertUtil.showAlert(ex.getMessage(), mainClass);
 			}
 		});
 		

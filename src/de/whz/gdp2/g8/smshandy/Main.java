@@ -7,10 +7,12 @@ import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
 import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
+import de.whz.gdp2.g8.smshandy.util.AlertUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.LoadListener;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -70,7 +72,7 @@ public class Main extends Application {
 			ProviderListController controller = loader.getController();
 			controller.setMainClass(this);
 		} catch (Exception e) {
-			e.printStackTrace();
+			AlertUtil.showAlert(e.getMessage(), this);
 		}
 	}
 
@@ -85,18 +87,19 @@ public class Main extends Application {
 			controller.setMainClass(this);
 			controller.setProvider(p);
 			
-			controller.setPrimaryStage(primaryStage);
-			controller.setRootLayout(rootLayout);
-
 			rootLayout.setCenter(listOfSmsHandys);
 			primaryStage.show();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			AlertUtil.showAlert(e.getMessage(), this);
 		}
 	}
 
     public void setRootPane(AnchorPane pane) {
     	rootLayout.setCenter(pane);
     }
+
+	public BorderPane getRootLayout() {
+		return rootLayout;
+	}
 }

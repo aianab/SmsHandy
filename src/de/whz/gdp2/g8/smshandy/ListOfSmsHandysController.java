@@ -11,6 +11,7 @@ import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.model.SmsHandy;
 import de.whz.gdp2.g8.smshandy.model.TariffPlanSmsHandy;
+import de.whz.gdp2.g8.smshandy.util.AlertUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -52,8 +53,6 @@ public class ListOfSmsHandysController {
 	private Main mainClass;
 	private ObservableList<SmsHandy> list;
 
-	private BorderPane rootLayout;
-	private Stage primaryStage;
 
 	public ListOfSmsHandysController() {
 		
@@ -78,13 +77,7 @@ public class ListOfSmsHandysController {
 		});
 	}
 
-	public void setRootLayout(BorderPane rootLayout) {
-		this.rootLayout = rootLayout;
-	}
 
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-	}
 
 	@FXML
 	private void initialize() {
@@ -130,12 +123,13 @@ public class ListOfSmsHandysController {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			AlertUtil.showAlert(e.getMessage(), mainClass);
 		}
 	}
 
 	public void addNewPhone() {
 		try {
-			primaryStage.close();
+			mainClass.getPrimaryStage().close();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/NewSmsHandyAdding.fxml"));
 			AnchorPane listOfSmsHandys = (AnchorPane) loader.load();
@@ -144,11 +138,12 @@ public class ListOfSmsHandysController {
 			controller.setMainClass(this.mainClass);
 			controller.setProvider(provider);
 
-			rootLayout.setCenter(listOfSmsHandys);
-			primaryStage.show();
+			mainClass.getRootLayout().setCenter(listOfSmsHandys);
+			mainClass.getPrimaryStage().show();
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			AlertUtil.showAlert(e.getMessage(), mainClass);
 		}
 	}
 	
@@ -162,9 +157,9 @@ public class ListOfSmsHandysController {
 		secondaryLayout.getChildren().add(1, unitsAmountField);
 		secondaryLayout.getChildren().add(2, loadUnitsButton);
 		
-		secondaryLayout.setAlignment(label, Pos.TOP_CENTER);
-		secondaryLayout.setAlignment(unitsAmountField, Pos.CENTER_LEFT);
-		secondaryLayout.setAlignment(loadUnitsButton, Pos.BOTTOM_CENTER);
+		StackPane.setAlignment(label, Pos.TOP_CENTER);
+		StackPane.setAlignment(unitsAmountField, Pos.CENTER_LEFT);
+		StackPane.setAlignment(loadUnitsButton, Pos.BOTTOM_CENTER);
 		
 		Scene secondScene = new Scene(secondaryLayout, 250, 100);
 		
