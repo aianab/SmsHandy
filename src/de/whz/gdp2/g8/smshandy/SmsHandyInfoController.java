@@ -1,5 +1,7 @@
 package de.whz.gdp2.g8.smshandy;
 
+import java.io.IOException;
+
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
 import de.whz.gdp2.g8.smshandy.model.Provider;
@@ -7,12 +9,14 @@ import de.whz.gdp2.g8.smshandy.model.SmsHandy;
 import javafx.beans.binding.SetBinding;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -36,19 +40,16 @@ public class SmsHandyInfoController {
 	
 	@FXML
 	private Button changeProviderButton;
+	@FXML
+	private Button sentButton;
+	@FXML
+	private Button receivedButton;
 	
 	@FXML
 	private Button backButton;
 	
-	public SmsHandyInfoController() {
-		
-	}
 	
-	@FXML
-	private void initialize() {
-		changeProviderButton.setOnMouseClicked(e -> {
-			showChangeProviderView();
-		});
+	public SmsHandyInfoController() {
 		
 	}
 	
@@ -57,7 +58,20 @@ public class SmsHandyInfoController {
 		backButton.setOnMouseClicked(e -> {
 			mainClass.showProviderInfo(phone.getProvider());
 		});
+		
 	}
+	@FXML
+	private void initialize() {
+		changeProviderButton.setOnMouseClicked(e -> {
+			showChangeProviderView();
+		});
+			
+		sentButton.setOnMouseClicked(e -> {
+			mainClass.showSentSmsList();
+		});
+	}
+	
+	
 	
 	public void setSmsHandy(SmsHandy phone) {
 		this.phone = phone;

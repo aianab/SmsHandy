@@ -100,4 +100,24 @@ public class Main extends Application {
     public void setRootPane(AnchorPane pane) {
     	rootLayout.setCenter(pane);
     }
+
+	public void showSentSmsList() {
+		try {
+			primaryStage.close();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/SentSmsList.fxml"));
+			AnchorPane sentSmsList = (AnchorPane) loader.load();
+			
+			SentSmsListController sentController = loader.getController();
+			sentController.setPrimaryStage(primaryStage);
+			sentController.setMainClass(this);
+			
+			rootLayout.setCenter(sentSmsList);
+			primaryStage.show();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		
+	}
 }
