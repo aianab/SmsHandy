@@ -40,7 +40,7 @@
                <children>
                   <ButtonBar prefHeight="40.0" prefWidth="400.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="New Message">
+                      <Button mnemonicParsing="false" text="New Message" fx:id="newMessageButton">
                            <opaqueInsets>
                               <Insets right="30.0" />
                            </opaqueInsets>
