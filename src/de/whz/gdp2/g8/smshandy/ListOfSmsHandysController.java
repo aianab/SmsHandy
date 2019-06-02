@@ -11,13 +11,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class ListOfSmsHandysController {
 
@@ -41,38 +40,44 @@ public class ListOfSmsHandysController {
     private Main mainClass;
     private ObservableList<SmsHandy> list;
 
-    public ListOfSmsHandysController() {
 
-    }
+	public ListOfSmsHandysController() {
+		
+	}
 
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-        list = FXCollections.observableArrayList();
-        list.setAll(provider.getPhones());
-        listSmsHandysView.setItems(list);
-        listSmsHandysView.getSelectionModel().select(0);
+	public void setProvider(Provider provider) {
+		this.provider = provider;
+		list = FXCollections.observableArrayList();
+		list.setAll(provider.getPhones());
+		listSmsHandysView.setItems(list);
+		listSmsHandysView.getSelectionModel().select(0);
+		
+	}
 
-    }
+	public void setMainClass(Main main) {
+		this.mainClass = main;
+		mainClass.getPrimaryStage().setOnCloseRequest(e -> {
+			mainClass.showFirstLayout();
+		});
+		
+		backButton.setOnMouseClicked(e -> {
+			mainClass.showFirstLayout();
+		});
+	}
 
-    public void setMainClass(Main main) {
-        this.mainClass = main;
-        mainClass.getPrimaryStage().setOnCloseRequest(e -> {
-            mainClass.showFirstLayout();
-        });
-    }
 
 
-    @FXML
-    private void initialize() {
-        removePhoneButton.setOnMouseClicked(e -> {
-            deletePhone(listSmsHandysView.getSelectionModel().getSelectedItem());
-        });
+	@FXML
+	private void initialize() {
+		removePhoneButton.setOnMouseClicked(e -> {
+			deletePhone(listSmsHandysView.getSelectionModel().getSelectedItem());
+		});
 
-        showSmsHandyInfoButton.setOnMouseClicked(e -> {
-            mainClass.showSmsHandyInfo(listSmsHandysView.getSelectionModel().getSelectedItem());
-        });
+		showSmsHandyInfoButton.setOnMouseClicked(e -> {
+			mainClass.showSmsHandyInfo(listSmsHandysView.getSelectionModel().getSelectedItem());
+		});
 
-        addNewPhoneButton.setOnMouseClicked(e ->
+		addNewPhoneButton.setOnMouseClicked(e ->
 
         {
             addNewPhone();
@@ -86,47 +91,59 @@ public class ListOfSmsHandysController {
         });
     }
 
-    private void deletePhone(SmsHandy phone) {
-        provider.removeSmsHandy(phone.getNumber());
-        list.remove(phone);
-    }
+	private void deletePhone(SmsHandy phone) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setHeaderText("Do you really want to delete this phone?");
+		alert.setResizable(false);
+		alert.setContentText("Select okay to confirm deletion");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK) {
+			provider.removeSmsHandy(phone.getNumber());
+			list.remove(phone);
+		}
+		else if(result.get() == ButtonType.CANCEL) {
+		}
+	}
 
 
-    public void addNewPhone() {
-        try {
-            mainClass.getPrimaryStage().close();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/NewSmsHandyAdding.fxml"));
-            AnchorPane listOfSmsHandys = (AnchorPane) loader.load();
 
-            NewSmsHandyAddingController controller = loader.getController();
-            controller.setMainClass(this.mainClass);
-            controller.setProvider(provider);
+	public void addNewPhone() {
+		try {
+			mainClass.getPrimaryStage().close();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/NewSmsHandyAdding.fxml"));
+			AnchorPane listOfSmsHandys = (AnchorPane) loader.load();
 
-            mainClass.getRootLayout().setCenter(listOfSmsHandys);
-            mainClass.getPrimaryStage().show();
+			NewSmsHandyAddingController controller = loader.getController();
+			controller.setMainClass(this.mainClass);
+			controller.setProvider(provider);
 
-        } catch (Exception e) {
-            AlertUtil.showAlert(e.getMessage(), mainClass);
-        }
-    }
+			mainClass.getRootLayout().setCenter(listOfSmsHandys);
+			mainClass.getPrimaryStage().show();
 
-    public void loadBalance() {
-        StackPane secondaryLayout = new StackPane();
-        Label label = new Label("Please enter amount of units you want to load");
-        secondaryLayout.getChildren().add(label);
-        TextField unitsAmountField = new TextField();
-        Button loadUnitsButton = new Button("Load");
-
-        secondaryLayout.getChildren().add(1, unitsAmountField);
-        secondaryLayout.getChildren().add(2, loadUnitsButton);
-
-        StackPane.setAlignment(label, Pos.TOP_CENTER);
-        StackPane.setAlignment(unitsAmountField, Pos.CENTER_LEFT);
-        StackPane.setAlignment(loadUnitsButton, Pos.BOTTOM_CENTER);
-
-        Scene secondScene = new Scene(secondaryLayout, 250, 100);
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			AlertUtil.showAlert(e.getMessage(), mainClass);
+		}
+	}
+	
+	public void loadBalance() {
+		StackPane secondaryLayout = new StackPane();
+		Label label = new Label("Please enter amount of units you want to load");
+		secondaryLayout.getChildren().add(label);
+		TextField unitsAmountField = new TextField();
+		Button loadUnitsButton = new Button("Load");
+		
+		secondaryLayout.getChildren().add(1, unitsAmountField);
+		secondaryLayout.getChildren().add(2, loadUnitsButton);
+		
+		StackPane.setAlignment(label, Pos.TOP_CENTER);
+		StackPane.setAlignment(unitsAmountField, Pos.CENTER_LEFT);
+		StackPane.setAlignment(loadUnitsButton, Pos.BOTTOM_CENTER);
+		
+		Scene secondScene = new Scene(secondaryLayout, 250, 100);
+		
         Stage newWindow = new Stage();
         newWindow.setTitle("Second Stage");
         newWindow.setScene(secondScene);
