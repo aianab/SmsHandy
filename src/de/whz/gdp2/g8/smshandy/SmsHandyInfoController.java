@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class SmsHandyInfoController {
 
@@ -118,12 +119,23 @@ public class SmsHandyInfoController {
         newWindow.show();
 
         addProviderButton.setOnMouseClicked(e -> {
-            phone.getProvider().removeSmsHandy(phone.getNumber());
-            phone.setProvider(providerListView.getSelectionModel().getSelectedItem());
+        	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Do you really want to change " + phone.getProvider() + " to " + providerListView.getSelectionModel().getSelectedItem());
+            alert.setResizable(false);
+            alert.setContentText("Select okay to confirm " + providerListView.getSelectionModel().getSelectedItem() + " as your new provider");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+            	phone.getProvider().removeSmsHandy(phone.getNumber());
+                phone.setProvider(providerListView.getSelectionModel().getSelectedItem());
+            } 
+            else if (result.get() == ButtonType.CANCEL) {
+            	newWindow.close();
+            }
             try {
                 phone.getProvider().register(phone);
             } catch (NumberExistsException e1) {
-                AlertUtil.showAlert(e1.getMessage(), mainClass);
+                //AlertUtil.showAlert(e1.getMessage(), mainClass);
             }
             providerLabel.setText(phone.getProvider().getName());
             newWindow.close();
