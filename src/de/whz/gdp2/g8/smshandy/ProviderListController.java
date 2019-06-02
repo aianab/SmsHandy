@@ -2,8 +2,10 @@ package de.whz.gdp2.g8.smshandy;
 
 
 import de.whz.gdp2.g8.smshandy.config.DBConfig;
+import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.model.TariffPlanSmsHandy;
+import de.whz.gdp2.g8.smshandy.util.AlertUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -107,7 +109,14 @@ public class ProviderListController {
         newWindow.show();
 
         addProviderButton.setOnMouseClicked(e -> {
-            observableList.add(new Provider(providerNameField.getText()));
+        	try {
+        		if(providerNameField.getText().isEmpty()) {
+        			throw new ProviderNotGivenException();
+        		}
+        		observableList.add(new Provider(providerNameField.getText()));
+			} catch (ProviderNotGivenException e1) {
+				AlertUtil.showAlert(e1.getMessage(), mainClass);
+				}            
             newWindow.close();
         });
     }

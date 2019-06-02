@@ -61,6 +61,10 @@ public class NewSmsHandyAddingController {
 
     public void createNewPhone(String selectedTariffPlan) {
         try {
+        	if(newNumberTextField.getText().isEmpty()) {
+        		System.out.println(newNumberTextField.getText());
+        		throw new IllegalArgumentException();
+        	}
             if (selectedTariffPlan == "TariffPlanSmsHandy") {
                 new TariffPlanSmsHandy(newNumberTextField.getText(), provider);
             } else if (selectedTariffPlan == "PrepaidSmsHandy") {
@@ -69,6 +73,8 @@ public class NewSmsHandyAddingController {
             mainClass.showProviderInfo(provider);
         } catch (NumberExistsException | NumberNotExistException | ProviderNotGivenException e) {
             AlertUtil.showAlert(e.getMessage(), mainClass);
+        }catch (IllegalArgumentException e) {
+        	AlertUtil.showAlert("Number not given, please enter a number", mainClass);		
         }
     }
 
