@@ -87,7 +87,7 @@ public class ListOfSmsHandysController {
 		});
 
 		showSmsHandyInfoButton.setOnMouseClicked(e -> {
-			showSmsHandyInfo();
+			mainClass.showSmsHandyInfo(listSmsHandysView.getSelectionModel().getSelectedItem());
 		});
 
 		addNewPhoneButton.setOnMouseClicked(e ->
@@ -106,27 +106,7 @@ public class ListOfSmsHandysController {
 		list.remove(phone);
 	}
 
-	private void showSmsHandyInfo() {
-		try {
-			Stage primaryStage = mainClass.getPrimaryStage();
-			primaryStage.close();
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/SmsHandyInfo.fxml"));
 
-			AnchorPane smsHandyInfo = (AnchorPane) loader.load();
-
-			SmsHandyInfoController controller = loader.getController();
-			controller.setSmsHandy(listSmsHandysView.getSelectionModel().getSelectedItem());
-			controller.setMainClass(mainClass);
-
-			mainClass.setRootPane(smsHandyInfo);
-			primaryStage.show();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			AlertUtil.showAlert(e.getMessage(), mainClass);
-		}
-	}
 
 	public void addNewPhone() {
 		try {
