@@ -95,6 +95,9 @@ public class SmsHandyInfoController {
 		sentButton.setOnMouseClicked(e -> {
 			mainClass.showSentSmsList(phone);
 		});
+		receivedButton.setOnMouseClicked(e -> {
+			mainClass.showReceivedSmsList(phone);
+		});		
 	}
 
 	public void setSmsHandy(SmsHandy phone) {

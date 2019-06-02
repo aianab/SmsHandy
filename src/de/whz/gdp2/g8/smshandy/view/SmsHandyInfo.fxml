@@ -29,7 +29,7 @@
                   <Label layoutX="35.0" layoutY="108.0" text="Tarif" />
                   <Label layoutX="34.0" layoutY="138.0" text="Balance" />
                   <Button fx:id="sentButton" layoutX="33.0" layoutY="192.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Sent Messages" />
-                  <Button layoutX="33.0" layoutY="240.0" mnemonicParsing="false" text="Received Messages" />
+                  <Button fx:id="receivedButton" layoutX="33.0" layoutY="240.0" mnemonicParsing="false" text="Received Messages" />
                   <Label fx:id="numberLabel" layoutX="123.0" layoutY="48.0" text="Label" />
                   <Label fx:id="providerLabel" layoutX="123.0" layoutY="78.0" text="Label" />
                   <Label fx:id="tarifLabel" layoutX="123.0" layoutY="108.0" text="Label" />

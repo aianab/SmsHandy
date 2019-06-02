@@ -156,12 +156,21 @@ public class ListOfSmsHandysController {
         
         loadUnitsButton.setOnMouseClicked(e -> {
         	PrepaidSmsHandy phone = (PrepaidSmsHandy) listSmsHandysView.getSelectionModel().getSelectedItem();
+        	
         	try {
+        		if(Integer.parseInt(unitsAmountField.getText()) < 0){
+    				throw new IllegalArgumentException();
+    			}
 				phone.deposit(Integer.parseInt(unitsAmountField.getText()));
+				
 			} catch (NumberFormatException e1) {
-				// TODO Auto-generated catch block
+				AlertUtil.showAlert("Please enter only positive digits", mainClass);
 				e1.printStackTrace();
-			} catch (NumberNotGivenException e1) {
+			} catch (IllegalArgumentException e1) {
+				AlertUtil.showAlert("Please enter only positive digits", mainClass);
+				
+				e1.printStackTrace();
+			}catch (NumberNotGivenException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} 

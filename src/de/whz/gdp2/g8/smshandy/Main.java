@@ -142,6 +142,25 @@ public class Main extends Application {
 				e1.printStackTrace();
 			}
 	}
+	
+	public void showReceivedSmsList(SmsHandy phone) {
+		try {
+			primaryStage.close();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/ReceivedSmsList.fxml"));
+			
+			AnchorPane receivedSmsList = (AnchorPane) loader.load();
+			ReceivedSmsListController receivedController = loader.getController();
+			receivedController.setMainClass(this);
+			receivedController.setPhone(phone);
+			receivedController.initTable();
+			rootLayout.setCenter(receivedSmsList);
+			primaryStage.show();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	}
 
 	public BorderPane getRootLayout() {
 		return rootLayout;
