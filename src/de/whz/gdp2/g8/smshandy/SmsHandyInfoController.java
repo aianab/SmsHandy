@@ -1,30 +1,44 @@
 package de.whz.gdp2.g8.smshandy;
 
+
+import java.io.IOException;
+
+
 import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
 import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
+import de.whz.gdp2.g8.smshandy.model.Message;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.model.SmsHandy;
 import de.whz.gdp2.g8.smshandy.util.AlertUtil;
 import javafx.beans.binding.SetBinding;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SmsHandyInfoController {
+	
+	@FXML
+	private ListView<SmsHandy> listSmsHandysView;
 
 	private SmsHandy phone;
 
@@ -44,16 +58,21 @@ public class SmsHandyInfoController {
 
 	@FXML
 	private Button changeProviderButton;
-
+	@FXML
+	private Button sentButton;
+	@FXML
+	private Button receivedButton;
+	
 	@FXML
 	private Button backButton;
-
+	
+	@FXML
+	private TableView<ObservableList<Message>> sentTable;
 	@FXML
 	private Button newMessageButton;
-
-
-	public SmsHandyInfoController() {
-
+	
+	public void setPhone(SmsHandy phone) {
+		this.phone = phone;
 	}
 
 	@FXML
@@ -61,7 +80,7 @@ public class SmsHandyInfoController {
 		changeProviderButton.setOnMouseClicked(e -> {
 			showChangeProviderView();
 		});
-
+			
 		newMessageButton.setOnMouseClicked(e -> {
 			showNewMessageView();
 		});
@@ -72,10 +91,13 @@ public class SmsHandyInfoController {
 		backButton.setOnMouseClicked(e -> {
 			mainClass.showProviderInfo(phone.getProvider());
 		});
+		sentButton.setOnMouseClicked(e -> {
+			mainClass.showSentSmsList(phone);
+		});
 	}
 
 	public void setSmsHandy(SmsHandy phone) {
-		this.phone = phone;
+		this.phone = phone; 
 		try {
 			balanceLabel.setText(phone.getProvider().getCreditForSmsHandy(phone.getNumber()) + "");
 			numberLabel.setText(phone.getNumber());
