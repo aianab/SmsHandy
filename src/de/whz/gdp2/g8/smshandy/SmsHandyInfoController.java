@@ -188,12 +188,13 @@ public class SmsHandyInfoController {
 			try {
 				phone.sendSms(toField.getText(), msgArea.getText());
 				AnimationUtil.showSendSmsAnimation(mainClass);
-			} catch (NotEnoughBalanceException | NumberNotExistException | ProviderNotGivenException
+			} catch (NotEnoughBalanceException | NumberNotExistException
 					| NumberNotGivenException ex) {
 				AlertUtil.showAlert(ex.getMessage(), mainClass);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				AlertUtil.showAlert("Message sent successfully!", mainClass);
+			} catch (ProviderNotGivenException e1) {
+				AlertUtil.showAlert(new NumberNotExistException().getMessage(), mainClass);
 			}
 		});
 		
