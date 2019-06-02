@@ -186,6 +186,7 @@ public class SmsHandyInfoController {
 		sendButton.setOnMouseClicked(e -> {
 			try {
 				phone.sendSms(toField.getText(), msgArea.getText());
+				newWindow.close();
 			} catch (NotEnoughBalanceException | NumberNotExistException | ProviderNotGivenException
 					| NumberNotGivenException ex) {
 				AlertUtil.showAlert(ex.getMessage(), mainClass);
