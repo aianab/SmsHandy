@@ -1,25 +1,14 @@
 package de.whz.gdp2.g8.smshandy;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.Observer;
-
 import de.whz.gdp2.g8.smshandy.model.Message;
-import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.SmsHandy;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 public class SentSmsListController {
 	@FXML
@@ -57,7 +46,6 @@ public class SentSmsListController {
 
 	public void initTable() {
 		ObservableList<Message> sentList = FXCollections.observableArrayList();
-//		sentList.add(new Message("123", "456", "qwerty", new Date()));
 		sentList.addAll(phone.getSent());
 		senderColumn.setCellValueFactory(new PropertyValueFactory<Message, String>("from"));
 		recieverColumn.setCellValueFactory(new PropertyValueFactory<Message, String>("to"));

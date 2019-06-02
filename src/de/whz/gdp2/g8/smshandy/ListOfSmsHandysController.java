@@ -1,14 +1,6 @@
 package de.whz.gdp2.g8.smshandy;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-
-
-import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
-import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
-import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.model.SmsHandy;
@@ -16,30 +8,19 @@ import de.whz.gdp2.g8.smshandy.model.TariffPlanSmsHandy;
 import de.whz.gdp2.g8.smshandy.util.AlertUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.util.Optional;
+
 public class ListOfSmsHandysController {
+
 
 	@FXML
 	private Label providerNameLabel;
@@ -85,115 +66,111 @@ public class ListOfSmsHandysController {
 			mainClass.showFirstLayout();
 		});
 	}
+	 @FXML
+	    private void initialize() {
+	        removePhoneButton.setOnMouseClicked(e -> {
+	            deletePhone(listSmsHandysView.getSelectionModel().getSelectedItem());
+	        });
+
+	        showSmsHandyInfoButton.setOnMouseClicked(e -> {
+	            mainClass.showSmsHandyInfo(listSmsHandysView.getSelectionModel().getSelectedItem());
+	        });
+
+	        addNewPhoneButton.setOnMouseClicked(e ->
+
+	        {
+	            addNewPhone();
+	        });
+	        loadBalanceButton.setOnMouseClicked(e -> {
+	            loadBalance();
+	        });
+
+	        backButton.setOnMouseClicked(e -> {
+	            mainClass.showFirstLayout();
+	        });
+	    }
+	 private void deletePhone(SmsHandy phone) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Do you really want to delete this phone?");
+        alert.setResizable(false);
+        alert.setContentText("Select okay to confirm deletion");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            provider.removeSmsHandy(phone.getNumber());
+            list.remove(phone);
+        } else if (result.get() == ButtonType.CANCEL) {
+        }
+    }
 
 
+    private void addNewPhone() {
+        try {
+            mainClass.getPrimaryStage().close();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/NewSmsHandyAdding.fxml"));
+            AnchorPane listOfSmsHandys = (AnchorPane) loader.load();
 
-	@FXML
-	private void initialize() {
-		removePhoneButton.setOnMouseClicked(e -> {
-			deletePhone(listSmsHandysView.getSelectionModel().getSelectedItem());
-		});
+            NewSmsHandyAddingController controller = loader.getController();
+            controller.setMainClass(this.mainClass);
+            controller.setProvider(provider);
 
-		showSmsHandyInfoButton.setOnMouseClicked(e -> {
-			mainClass.showSmsHandyInfo(listSmsHandysView.getSelectionModel().getSelectedItem());
-		});
+            mainClass.getRootLayout().setCenter(listOfSmsHandys);
+            mainClass.getPrimaryStage().show();
 
-		addNewPhoneButton.setOnMouseClicked(e ->
+        } catch (Exception e) {
+            e.printStackTrace();
+            AlertUtil.showAlert(e.getMessage(), mainClass);
+        }
+    }
 
-		{
-			addNewPhone();
-		});
-		loadBalanceButton.setOnMouseClicked(e -> {
-			loadBalance();
-		});
-		
-	}
+    private void loadBalance() {
+        StackPane secondaryLayout = new StackPane();
+        Label label = new Label("Please enter amount of units you want to load");
+        secondaryLayout.getChildren().add(label);
+        TextField unitsAmountField = new TextField();
+        Button loadUnitsButton = new Button("Load");
 
-	private void deletePhone(SmsHandy phone) {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle("Confirmation");
-		alert.setHeaderText("Do you really want to delete this phone?");
-		alert.setResizable(false);
-		alert.setContentText("Select okay to confirm deletion");
-		Optional<ButtonType> result = alert.showAndWait();
-		if(result.get() == ButtonType.OK) {
-			provider.removeSmsHandy(phone.getNumber());
-			list.remove(phone);
-		}
-		else if(result.get() == ButtonType.CANCEL) {
-		}
-	}
+        secondaryLayout.getChildren().add(1, unitsAmountField);
+        secondaryLayout.getChildren().add(2, loadUnitsButton);
 
+        StackPane.setAlignment(label, Pos.TOP_CENTER);
+        StackPane.setAlignment(unitsAmountField, Pos.CENTER_LEFT);
+        StackPane.setAlignment(loadUnitsButton, Pos.BOTTOM_CENTER);
 
+        Scene secondScene = new Scene(secondaryLayout, 250, 100);
 
-	public void addNewPhone() {
-		try {
-			mainClass.getPrimaryStage().close();
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/NewSmsHandyAdding.fxml"));
-			AnchorPane listOfSmsHandys = (AnchorPane) loader.load();
-
-			NewSmsHandyAddingController controller = loader.getController();
-			controller.setMainClass(this.mainClass);
-			controller.setProvider(provider);
-
-			mainClass.getRootLayout().setCenter(listOfSmsHandys);
-			mainClass.getPrimaryStage().show();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			AlertUtil.showAlert(e.getMessage(), mainClass);
-		}
-	}
-	
-	public void loadBalance() {
-		StackPane secondaryLayout = new StackPane();
-		Label label = new Label("Please enter amount of units you want to load");
-		secondaryLayout.getChildren().add(label);
-		TextField unitsAmountField = new TextField();
-		Button loadUnitsButton = new Button("Load");
-		
-		secondaryLayout.getChildren().add(1, unitsAmountField);
-		secondaryLayout.getChildren().add(2, loadUnitsButton);
-		
-		StackPane.setAlignment(label, Pos.TOP_CENTER);
-		StackPane.setAlignment(unitsAmountField, Pos.CENTER_LEFT);
-		StackPane.setAlignment(loadUnitsButton, Pos.BOTTOM_CENTER);
-		
-		Scene secondScene = new Scene(secondaryLayout, 250, 100);
-		
         Stage newWindow = new Stage();
         newWindow.setTitle("Second Stage");
         newWindow.setScene(secondScene);
 
 
-        newWindow.setX( mainClass.getPrimaryStage().getX() + 200);
+        newWindow.setX(mainClass.getPrimaryStage().getX() + 200);
         newWindow.setY(mainClass.getPrimaryStage().getY() + 100);
 
         newWindow.show();
-        
+
         loadUnitsButton.setOnMouseClicked(e -> {
-        	PrepaidSmsHandy phone = (PrepaidSmsHandy) listSmsHandysView.getSelectionModel().getSelectedItem();
-        	
-        	try {
-        		if(Integer.parseInt(unitsAmountField.getText()) < 0){
-    				throw new IllegalArgumentException();
-    			}
-				phone.deposit(Integer.parseInt(unitsAmountField.getText()));
-				
-			} catch (NumberFormatException e1) {
-				AlertUtil.showAlert("Please enter only positive digits", mainClass);
-				e1.printStackTrace();
-			} catch (IllegalArgumentException e1) {
-				AlertUtil.showAlert("Please enter only positive digits", mainClass);
-				
-				e1.printStackTrace();
-			}catch (NumberNotGivenException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} 
-			newWindow.close();
-		});
-	}
+            try {
+                SmsHandy phone = listSmsHandysView.getSelectionModel().getSelectedItem();
+                if (Integer.parseInt(unitsAmountField.getText()) < 0) {
+                    throw new IllegalArgumentException();
+                }
+                if (phone instanceof PrepaidSmsHandy) {
+                    ((PrepaidSmsHandy) phone).deposit(Integer.parseInt(unitsAmountField.getText()));
+                }
+                if (phone instanceof TariffPlanSmsHandy) {
+                    AlertUtil.showAlert("Your tariff plan does not allow you to load \n any amount of balance!", mainClass);
+                }
+            } catch (NumberFormatException e1) {
+                AlertUtil.showAlert("Please enter only positive digits", mainClass);
+            } catch (IllegalArgumentException e1) {
+                AlertUtil.showAlert("Please enter only positive digits", mainClass);
+            } catch (NumberNotGivenException e1) {
+                AlertUtil.showAlert("Number must be given!", mainClass);
+            }
+            newWindow.close();
+        });
+    }
 
 }
