@@ -174,4 +174,5 @@ public class SmsHandyInfoController {
 			newWindow.close();
 		});
 	}
+	
 }
