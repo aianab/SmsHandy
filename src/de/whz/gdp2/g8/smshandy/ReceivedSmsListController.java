@@ -52,7 +52,7 @@ public class ReceivedSmsListController {
 
 	public void initTable() {
 		ObservableList<Message> receivedList = FXCollections.observableArrayList();
-		receivedList.add(new Message("123", "456", "qwerty", new Date()));
+//		receivedList.add(new Message("123", "456", "qwerty", new Date()));
 		receivedList.addAll(phone.getReceived());
 		recieverColumn.setCellValueFactory(new PropertyValueFactory<Message, String>("to"));
 		senderColumn.setCellValueFactory(new PropertyValueFactory<Message, String>("from"));

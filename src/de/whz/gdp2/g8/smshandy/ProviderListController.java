@@ -4,6 +4,7 @@ package de.whz.gdp2.g8.smshandy;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
@@ -16,7 +17,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -100,8 +103,18 @@ public class ProviderListController {
 	
 	private void removeProvider(ObservableList<Provider> observableList) {
 		Provider p = providerListView.getSelectionModel().getSelectedItem();
-		Provider.providerList.remove(p);
-		observableList.remove(p);
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setHeaderText("Do you really want to delete this provider?");
+		alert.setResizable(false);
+		alert.setContentText("Select okay to confirm deletion");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK) {
+			Provider.providerList.remove(p);
+			observableList.remove(p);
+		}
+		else if(result.get() == ButtonType.CANCEL) {
+		}
 	}
 	
 	private void showAddNewProviderWindow(ObservableList<Provider> observableList) {
