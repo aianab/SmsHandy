@@ -156,7 +156,7 @@ public abstract class SmsHandy {
 	 * @throws NumberNotExistException 
 	 */
 	public void receiveSms(Message message) throws NumberNotExistException{
-		if(message.getTo() != this.number) {
+		if(!message.getTo().equalsIgnoreCase(this.number)) {
 			throw new NumberNotExistException();
 		}
 		received.add(message);

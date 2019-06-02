@@ -13,6 +13,7 @@ import de.whz.gdp2.g8.smshandy.model.Message;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.model.SmsHandy;
 import de.whz.gdp2.g8.smshandy.util.AlertUtil;
+import de.whz.gdp2.g8.smshandy.util.AnimationUtil;
 import javafx.beans.binding.SetBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -189,9 +190,14 @@ public class SmsHandyInfoController {
 		sendButton.setOnMouseClicked(e -> {
 			try {
 				phone.sendSms(toField.getText(), msgArea.getText());
-			} catch (NotEnoughBalanceException | NumberNotExistException | ProviderNotGivenException
+				AnimationUtil.showSendSmsAnimation(mainClass);
+			} catch (NotEnoughBalanceException | NumberNotExistException
 					| NumberNotGivenException ex) {
 				AlertUtil.showAlert(ex.getMessage(), mainClass);
+			} catch (IOException e1) {
+				AlertUtil.showAlert("Message sent successfully!", mainClass);
+			} catch (ProviderNotGivenException e1) {
+				AlertUtil.showAlert(new NumberNotExistException().getMessage(), mainClass);
 			}
 		});
 		
