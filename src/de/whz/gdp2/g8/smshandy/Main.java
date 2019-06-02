@@ -6,6 +6,7 @@ import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
 import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
 import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
 import de.whz.gdp2.g8.smshandy.model.PrepaidSmsHandy;
+import de.whz.gdp2.g8.smshandy.model.SmsHandy;
 import de.whz.gdp2.g8.smshandy.model.Provider;
 import de.whz.gdp2.g8.smshandy.util.AlertUtil;
 import javafx.application.Application;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	private Stage primaryStage;
+	
 	private BorderPane rootLayout;
 
 	public static void main(String[] args) {
@@ -32,6 +34,7 @@ public class Main extends Application {
 		this.primaryStage.setTitle("SmsHandy");
 		initRootLayout();
 		showFirstLayout();
+		
 	}
 
 	/**
@@ -99,17 +102,18 @@ public class Main extends Application {
     	rootLayout.setCenter(pane);
     }
 
-	public void showSentSmsList() {
+	 void showSentSmsList(SmsHandy phone) {
 		try {
 			primaryStage.close();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/SentSmsList.fxml"));
-			AnchorPane sentSmsList = (AnchorPane) loader.load();
 			
+			AnchorPane sentSmsList = (AnchorPane) loader.load();
 			SentSmsListController sentController = loader.getController();
 			sentController.setPrimaryStage(primaryStage);
 			sentController.setMainClass(this);
-			
+			sentController.setPhone(phone);
+			sentController.initTable();
 			rootLayout.setCenter(sentSmsList);
 			primaryStage.show();
 			} catch (IOException e1) {
