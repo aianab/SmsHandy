@@ -101,6 +101,28 @@ public class Main extends Application {
     public void setRootPane(AnchorPane pane) {
     	rootLayout.setCenter(pane);
     }
+    
+    public void showSmsHandyInfo(SmsHandy phone) {
+		try {
+			Stage primaryStage = getPrimaryStage();
+			primaryStage.close();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/SmsHandyInfo.fxml"));
+
+			AnchorPane smsHandyInfo = (AnchorPane) loader.load();
+
+			SmsHandyInfoController controller = loader.getController();
+			controller.setSmsHandy(phone);
+			controller.setMainClass(this);
+
+			setRootPane(smsHandyInfo);
+			primaryStage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			AlertUtil.showAlert(e.getMessage(), this);
+		}
+	}
 
 	 void showSentSmsList(SmsHandy phone) {
 		try {

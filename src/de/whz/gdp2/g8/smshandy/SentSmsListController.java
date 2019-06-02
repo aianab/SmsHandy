@@ -58,9 +58,9 @@ public class SentSmsListController {
 		mainClass.getPrimaryStage().setOnCloseRequest(e -> {
 		mainClass.showFirstLayout();
 		
-//		backButton.setOnMouseClicked(ev -> {
-//			mainClass.showSmsHandyInfo(phone.getProvider());
-//		});
+		backButton.setOnMouseClicked(ev -> {
+			mainClass.showSmsHandyInfo(phone);
+		});
 		});
 	}
 	
