@@ -10,29 +10,50 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="de.whz.gdp2.g8.smshandy.ListOfSmsHandysController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.whz.gdp2.g8.smshandy.ListOfSmsHandysController">
 	<children>
-
-		<VBox prefHeight="500.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<VBox prefHeight="386.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
-				<Label fx:id="providerNameLabel">
-					<VBox.margin>
-						<Insets left="150.0" />
-					</VBox.margin>
-					<font>
-						<Font size="24.0" />
-					</font>
-				</Label>
-            <Button fx:id="backButton" mnemonicParsing="false" prefHeight="32.0" prefWidth="49.0" text="Back" />
-				<ListView fx:id="listSmsHandysView" prefHeight="200.0" prefWidth="200.0" />
+            <HBox>
+               <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="49.0" text="Back">
+                     <HBox.margin>
+                        <Insets right="100.0" />
+                     </HBox.margin>
+                  </Button>
+      				<Label fx:id="providerNameLabel" prefHeight="35.0" prefWidth="186.0">
+      					<font>
+      						<Font size="24.0" />
+      					</font>
+      				</Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+				<ListView fx:id="listSmsHandysView" prefHeight="200.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin></ListView>
 				<HBox>
 					<children>
-						<Button fx:id="addNewPhoneButton" mnemonicParsing="false" text="Add New Phone" />
-						<Button fx:id="removePhoneButton" mnemonicParsing="false" text="Delete" />
-						<Button fx:id="showSmsHandyInfoButton" mnemonicParsing="false" text="Info" />
+						<Button fx:id="addNewPhoneButton" mnemonicParsing="false" text="Add New Phone">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></Button>
+						<Button fx:id="removePhoneButton" mnemonicParsing="false" prefWidth="62.0" text="Delete">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></Button>
+						<Button fx:id="showSmsHandyInfoButton" mnemonicParsing="false" prefWidth="62.0" text="Info">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></Button>
                   		<Button fx:id="loadBalanceButton" mnemonicParsing="false" text="Load Balance" />
 					</children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
 				</HBox>
 			</children>
 			<padding>
