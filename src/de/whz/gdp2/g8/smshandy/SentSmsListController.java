@@ -48,7 +48,6 @@ public class SentSmsListController {
 	public void setMainClass(Main main) {
 		this.mainClass = main;
 		backButton.setOnMouseClicked(ev -> {
-			System.out.println("hwefj");
 			mainClass.showSmsHandyInfo(phone);
 		});
 		mainClass.getPrimaryStage().setOnCloseRequest(e -> {
