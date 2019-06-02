@@ -124,7 +124,7 @@ public class Main extends Application {
 		}
 	}
 
-	 void showSentSmsList(SmsHandy phone) {
+	public void showSentSmsList(SmsHandy phone) {
 		try {
 			primaryStage.close();
 			FXMLLoader loader = new FXMLLoader();
@@ -132,7 +132,6 @@ public class Main extends Application {
 			
 			AnchorPane sentSmsList = (AnchorPane) loader.load();
 			SentSmsListController sentController = loader.getController();
-			sentController.setPrimaryStage(primaryStage);
 			sentController.setMainClass(this);
 			sentController.setPhone(phone);
 			sentController.initTable();

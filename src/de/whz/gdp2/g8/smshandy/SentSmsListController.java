@@ -25,45 +25,37 @@ public class SentSmsListController {
 	@FXML
 	private TableView<Message> sentTable;
 	@FXML
-    private TableColumn<Message, String> senderColumn;
+	private TableColumn<Message, String> senderColumn;
 	@FXML
-    private TableColumn<Message, String> recieverColumn;
+	private TableColumn<Message, String> recieverColumn;
 	@FXML
-    private TableColumn<Message, String> contentColumn;
+	private TableColumn<Message, String> contentColumn;
 	@FXML
-    private TableColumn<Message, String> dateColumn;
+	private TableColumn<Message, String> dateColumn;
 	@FXML
-    private Button backButton;
-	
+	private Button backButton;
+
 	private Message message;
-	
+
 	private SmsHandy phone;
-	
-	private Stage primaryStage; 
-	
-	private BorderPane rootLayout;
-	
+
 	private Main mainClass;
-	
+
 	public void setPhone(SmsHandy phone) {
 		this.phone = phone;
 	}
-	
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-	}
-	
+
 	public void setMainClass(Main main) {
 		this.mainClass = main;
-		mainClass.getPrimaryStage().setOnCloseRequest(e -> {
-		mainClass.showFirstLayout();
-		
 		backButton.setOnMouseClicked(ev -> {
+			System.out.println("hwefj");
 			mainClass.showSmsHandyInfo(phone);
 		});
+		mainClass.getPrimaryStage().setOnCloseRequest(e -> {
+			mainClass.showFirstLayout();
 		});
 	}
-	
+
 	public void initTable() {
 		ObservableList<Message> sentList = FXCollections.observableArrayList();
 //		sentList.add(new Message("123", "456", "qwerty", new Date()));
