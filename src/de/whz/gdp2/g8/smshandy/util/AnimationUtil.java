@@ -1,24 +1,16 @@
 package de.whz.gdp2.g8.smshandy.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import de.whz.gdp2.g8.smshandy.Main;
 import javafx.animation.TranslateTransition;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class AnimationUtil {
 	public static void showSendSmsAnimation(Main mainClass) throws IOException {

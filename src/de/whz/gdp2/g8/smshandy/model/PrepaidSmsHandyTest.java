@@ -1,5 +1,6 @@
 package de.whz.gdp2.g8.smshandy.model;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,7 @@ class PrepaidSmsHandyTest {
 	}
 	
 	@Test
-	void testPayForSms() throws NumberExistsException, NotEnoughBalanceException, NumberNotGivenException {
+	void testPayForSms() throws NumberExistsException, NotEnoughBalanceException, NumberNotGivenException, NumberNotExistException {
 		int actualBalance = 90;
 		phone.payForSms();
 		assertEquals(provider.getCreditForSmsHandy(phone.getNumber()), actualBalance);
@@ -38,7 +39,7 @@ class PrepaidSmsHandyTest {
 	}
 
 	@Test
-	void testDeposit() throws NumberExistsException, NumberNotGivenException{
+	void testDeposit() throws NumberExistsException, NumberNotGivenException, NumberNotExistException {
 		int actualBalance = 200;
 		phone.deposit(100);
 		assertEquals(provider.getCreditForSmsHandy(phone.getNumber()), actualBalance);

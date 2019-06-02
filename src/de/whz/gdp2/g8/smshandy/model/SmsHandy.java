@@ -59,11 +59,10 @@ public abstract class SmsHandy {
 	 * @param content - der Inhalt der SMS
 	 * @throws NotEnoughBalanceException 
 	 * @throws WrongNumberOfRecipient 
-	 * @throws NumberNotGivenException 
-	 * @throws ProviderNotGivenException 
+	 * @throws NumberNotGivenException
 	 * @throws NumberNotExistException 
 	 */
-	public void sendSms(String to, String content) throws NotEnoughBalanceException, NumberNotExistException, ProviderNotGivenException, NumberNotGivenException {
+	public void sendSms(String to, String content) throws NotEnoughBalanceException, NumberNotExistException, NumberNotGivenException {
 		Message message = new Message();
 		message.setContent(content);
 		message.setFrom(this.number);

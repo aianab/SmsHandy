@@ -36,7 +36,7 @@ public class PrepaidSmsHandy extends SmsHandy {
 	public boolean canSendSms() {
 		try {
 			return provider.getCreditForSmsHandy(getNumber()) >= COST_PER_SMS;
-		} catch (NumberNotGivenException e) {
+		} catch (NumberNotGivenException | NumberNotExistException e) {
 			return false;
 		}
 	}

@@ -83,7 +83,7 @@ public class ProviderTest {
 		assert provider1.getCreditForSmsHandy(phone1.getNumber()) == 90;
 	}
 	
-	@Test(expected = NumberNotGivenException.class)
+	@Test(expected = NumberNotExistException.class)
 	public void getCreditForSmsHandyWithNotExistingNumber() throws Exception {
 		provider1.getCreditForSmsHandy("nothing");
 	}

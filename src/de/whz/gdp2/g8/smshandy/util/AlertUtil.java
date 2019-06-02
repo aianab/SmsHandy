@@ -1,24 +1,11 @@
 package de.whz.gdp2.g8.smshandy.util;
 
 import de.whz.gdp2.g8.smshandy.Main;
-import de.whz.gdp2.g8.smshandy.exception.NotEnoughBalanceException;
-import de.whz.gdp2.g8.smshandy.exception.NumberExistsException;
-import de.whz.gdp2.g8.smshandy.exception.NumberNotExistException;
-import de.whz.gdp2.g8.smshandy.exception.NumberNotGivenException;
-import de.whz.gdp2.g8.smshandy.exception.ProviderNotGivenException;
-import de.whz.gdp2.g8.smshandy.model.Provider;
-import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AlertUtil {
